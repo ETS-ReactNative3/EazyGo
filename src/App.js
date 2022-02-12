@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import Login from './pages/Login';
-import colors from './assets/theme.colors';
-import Home from './pages/Home';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import Icon from 'react-native-elements';
 import FlashMessage from 'react-native-flash-message';
 import {
   DefaultTheme,
@@ -12,7 +7,6 @@ import {
   Provider as PaperProvider,
 } from 'react-native-paper';
 import AppNavigator from './Navigators/AppNavigator';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const {Navigator: TabNavigator, Screen: TabScreen} =
   createMaterialBottomTabNavigator();
@@ -63,25 +57,6 @@ const App = () => {
   return (
     <>
       <PaperProvider theme={theme}>
-        {/* {logIN ? (
-          <NavigationContainer>
-            <TabNavigator barStyle={{backgroundColor: colors.PRIMARY}}>
-              <TabScreen name="Home" component={Home} />
-              <TabScreen name="Settings" component={Login} />
-              <TabScreen name="Profile" component={Login} />
-            </TabNavigator>
-          </NavigationContainer>
-        ) : (
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{headerShown: false}}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        )} */}
         <AppNavigator />
         <FlashMessage position="top" />
       </PaperProvider>
