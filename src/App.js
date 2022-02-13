@@ -1,16 +1,8 @@
-import React, {useState} from 'react';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import React from 'react';
 import FlashMessage from 'react-native-flash-message';
-import {
-  DefaultTheme,
-  configureFonts,
-  Provider as PaperProvider,
-} from 'react-native-paper';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import AppNavigator from './Navigators/AppNavigator';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const {Navigator: TabNavigator, Screen: TabScreen} =
-  createMaterialBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+
 const App = () => {
   const fontConfig = {
     android: {
@@ -42,18 +34,17 @@ const App = () => {
     roundness: 2,
     colors: {
       ...DefaultTheme.colors,
-      fonts: configureFonts(fontConfig),
       blueBg1: '#3DA6E6',
       whiteBg2: '#FFFFFF',
       textColor: '#47525E',
       flatBtn: '#3a52bc',
       textInputColor: '#FFFFFF',
       labelColor: '#FFFFFF',
-      primary: '#3751bc',
-      text: '#3751bc',
+      primary: '#000',
+      text: '#000',
     },
   };
-  const logIN = true;
+
   return (
     <>
       <PaperProvider theme={theme}>

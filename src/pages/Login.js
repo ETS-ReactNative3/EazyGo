@@ -1,13 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import TextInputPaper from '../components/TextInput';
-import {Button} from 'react-native-paper';
+import {Button, Card} from 'react-native-paper';
 import styles from '../styles/Login';
 import {Avatar} from 'react-native-paper';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthStore from '../store/AuthStore';
 
 const Login = () => {
   const [email_phone, setEmail_Phone] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useContext(AuthStore);
   const email_phone_Set = value => {
     setEmail_Phone(value);
   };
@@ -20,6 +24,36 @@ const Login = () => {
   const signup = () => {
     console.log('Signup Called');
   };
+  const loginHandler = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const payload = {
+      email: email_phone,
+      password: password,
+    };
+    try {
+      const response = await axios.post(
+        'https://easy-go-nec.herokuapp.com/v1/auth/login',
+        payload,
+        config,
+      );
+      if (response) {
+        if (response.data) {
+          console.log('hello');
+          console.log(token);
+          await AsyncStorage.setItem('@userdata', response.data.token);
+          console.log(token)
+          setToken(response.data.token);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <View style={styles.cont}>
       <View style={styles.container}>
@@ -30,39 +64,45 @@ const Login = () => {
         />
         <Text style={styles.header}>EazyGo</Text>
       </View>
-      <View>
-          <View style={styles.signincont}>
-            <Text style={styles.signin}>LOGIN</Text>
-          </View>
-        <TextInputPaper
-          label="Email/Phone"
-          value={email_phone}
-          onChange={email_phone_Set}
-          style={styles.textField}
-        />
-        <TextInputPaper
-          label="Password"
-          value={password}
-          secureTextEntry={true}
-          onChange={passwordSet}
-          style={styles.textField}
-        />
-        <Button
-          mode="contained"
-          onPress={() => console.log('Pressed')}
-          style={styles.login_btn}>
-          Login
-        </Button>
-        <View>
-          <TouchableOpacity onPress={frgt_pswd}>
-            <Text style={styles.forgotpswd}>Forgot Password? Need Help</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={signup}>
-            <Text style={styles.signup}>Dont have an Account? Sign Up</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.card_cont}>
+        <Card style={styles.card}>
+          <Card.Content>
+            <View style={styles.signincont}>
+              <Text style={styles.signin}>LOGIN</Text>
+            </View>
+            <TextInputPaper
+              label="Email/Phone"
+              value={email_phone}
+              onChange={email_phone_Set}
+              style={styles.textField}
+            />
+            <TextInputPaper
+              label="Password"
+              value={password}
+              secureTextEntry={true}
+              onChange={passwordSet}
+              style={styles.textField}
+            />
+            <Button
+              mode="contained"
+              onPress={loginHandler}
+              style={styles.login_btn}>
+              Login
+            </Button>
+            <View>
+              <TouchableOpacity onPress={frgt_pswd}>
+                <Text style={styles.forgotpswd}>
+                  Forgot Password? Need Help
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity onPress={signup}>
+                <Text style={styles.signup}>Dont have an Account? Sign Up</Text>
+              </TouchableOpacity>
+            </View>
+          </Card.Content>
+        </Card>
       </View>
     </View>
   );

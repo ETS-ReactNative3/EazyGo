@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   },
   textField: {
     marginTop: 20,
-    marginHorizontal: '5%',
-    width: '90%',
+    marginHorizontal: '2%',
+    width: '96%',
     backgroundColor:colors.WHITE
   },
   login_btn: {
@@ -23,31 +23,42 @@ const styles = StyleSheet.create({
   },
   forgotpswd: {
     color: 'red',
-    fontSize: parseInt(width/20),
+    fontSize: parseInt(width/23),
     textAlign:'center',
-    marginTop:15
+    marginTop:15,
+    fontFamily:'Montserrat'
+  },
+  card:{
+    margin:'3%',
+    marginTop:'7%'
+  },
+  card_cont:{
+    backgroundColor:'whitesmoke'
   },
   signup:{
     color:colors.PRIMARY,
-    fontSize:parseInt(width/20),
+    fontSize:parseInt(width/23),
     textAlign:'center',
     marginTop:15
   },
   cont:{
     minHeight:'100%',
-    backgroundColor:themeColors.WHITE
+    backgroundColor:'whitesmoke'
   },
   head:{
     backgroundColor:themeColors.WHITE,
   },
   header:{
-    fontSize: parseInt(width/10),
+    fontSize: parseInt(width/12),
     marginTop:5,
-    color:colors.WHITE
+    color:colors.WHITE,
+    fontFamily:'Euphemia UCAS',
+    fontWeight:'bold'
   },
   signin:{
     color:colors.PRIMARY,
-    fontSize:width/15
+    fontSize:width/15,
+    fontWeight:'bold'
   },
   signincont:{
     justifyContent:'center',

@@ -15,7 +15,7 @@ const SplashPage = () => {
         />
       </View>
       <Animatable.Text animation="zoomIn">
-        <Text style={styles.text}>ISUZU EasyGo</Text>
+        <Text style={styles.text}>ISUZU EazyGo</Text>
       </Animatable.Text>
     </View>
   );
