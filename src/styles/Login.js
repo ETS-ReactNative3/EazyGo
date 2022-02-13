@@ -1,8 +1,8 @@
 import {StyleSheet,Dimensions} from 'react-native';
 import themeColors from '../assets/theme.colors';
 import colors from '../assets/theme.colors';
+
 const width = Dimensions.get('window').width;
-console.log('width',width)
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.PRIMARY,
