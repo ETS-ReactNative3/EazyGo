@@ -40,18 +40,22 @@ const PlacesInput = () => {
         );
         const results = response.data.results;
         const allPlaces = [];
-        results.forEach(element => {
-          allPlaces.push({key: element.title});
-        });
+        for (let i = 0; i < results.length/2+1; i++) {
+          allPlaces.push({key: results[i].title});
+        }
         setPlaces(allPlaces);
       };
       hereApiSearch();
-      if (!selected) setShowList(true);
-      else setShowList(false);
-      setSelected(false);
     }
   }, [location]);
-
+  useEffect(() => {
+    console.log(places);
+    if (!selected) {
+      setShowList(false);
+      setShowList(true);
+    } else setShowList(false);
+    setSelected(false);
+  }, [places]);
   return (
     <>
       {locationGot ? (
@@ -62,13 +66,12 @@ const PlacesInput = () => {
             style={styles.placeInput}
             onChangeText={value => setLocation(value)}
           />
-          {showList ? (
+          {showList && places ? (
             <>
               <ScrollView style={styles.container}>
                 <Card style={{backgroundColor: 'lightgrey'}}>
-                  <FlatList
-                    data={places}
-                    renderItem={({item}) => (
+                  {places.map(item => {
+                    return (
                       <TouchableOpacity
                         onPress={() => {
                           setSelected(true);
@@ -76,8 +79,8 @@ const PlacesInput = () => {
                         }}>
                         <Text style={styles.item}>{item.key}</Text>
                       </TouchableOpacity>
-                    )}
-                  />
+                    );
+                  })}
                 </Card>
               </ScrollView>
             </>
