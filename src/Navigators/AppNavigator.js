@@ -7,25 +7,37 @@ import AuthNavigator from './AuthNavigator';
 import SplashPage from '../pages/SplashPage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';
+import Geolocation from '@react-native-community/geolocation';
 const AppNavigator = () => {
   const [splash, setSplash] = useState(true);
   const [data, setData] = useState(false);
   const [token, setToken] = useState();
-  const fn = async () => {
-    const authToken = await AsyncStorage.getItem('@userdata');
-    setToken(authToken);
-    setData(true);
-  };
-  fn();
+  const [userLocation, setUserLocation] = useState();
+  useEffect(() => {
+    const fn = async () => {
+      const authToken = await AsyncStorage.getItem('@userdata');
+      setToken(authToken);
+      setData(true);
+      Geolocation.getCurrentPosition(position => {
+        const currentLongitude = JSON.stringify(position.coords.longitude);
+        const currentLatitude = JSON.stringify(position.coords.latitude);
+        const response = {
+          latitude: currentLatitude,
+          longitude: currentLongitude,
+        };
+        setUserLocation(response);
+      });
+    };
+    fn();
+  }, []);
   setTimeout(() => {
     setSplash(false);
   }, 3000);
   if (splash) return <SplashPage />;
-  console.log(token);
   return (
     <>
       {data ? (
-        <AuthStore.Provider value={[token, setToken]}>
+        <AuthStore.Provider value={[token, setToken, userLocation]}>
           {token ? <PagesNavigator /> : <AuthNavigator />}
         </AuthStore.Provider>
       ) : null}
