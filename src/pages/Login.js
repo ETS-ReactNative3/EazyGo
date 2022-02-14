@@ -42,10 +42,7 @@ const Login = () => {
       );
       if (response) {
         if (response.data) {
-          console.log('hello');
-          console.log(token);
           await AsyncStorage.setItem('@userdata', response.data.token);
-          console.log(token)
           setToken(response.data.token);
         }
       }

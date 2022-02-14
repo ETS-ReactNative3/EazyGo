@@ -1,20 +1,90 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Config from 'react-native-config';
-import { TextInput } from 'react-native-paper';
-import {getCurrentLocation} from '../actions/actions';
-const PlacesInput = () => {
-  const [places,setPlaces] = useState();
-  const [location,setLocation] = useState();
-  const fn = async()=>{
-    const response = await getCurrentLocation();
-  }
-  fn();
-  return (
-    <TextInput 
-      value = {places}
-      onChange = {(value) => setPlaces(value)}
+import {TextInput, Card} from 'react-native-paper';
+import Geolocation from '@react-native-community/geolocation';
+import axios from 'axios';
+import styles from '../styles/PlaceInput';
+import {TouchableOpacity, View, FlatList, Text, ScrollView} from 'react-native';
 
-    />
+const PlacesInput = () => {
+  const [places, setPlaces] = useState();
+  const [location, setLocation] = useState();
+  const [userLocation, setUserLocation] = useState();
+  const [locationGot, setLocationGot] = useState(false);
+  const [showList, setShowList] = useState(false);
+  const [selected, setSelected] = useState(false);
+  useEffect(() => {
+    Geolocation.getCurrentPosition(position => {
+      const currentLongitude = JSON.stringify(position.coords.longitude);
+      const currentLatitude = JSON.stringify(position.coords.latitude);
+      const response = {
+        latitude: currentLatitude,
+        longitude: currentLongitude,
+      };
+      setUserLocation(response);
+      setLocationGot(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (userLocation) {
+      const hereApiSearch = async () => {
+        const response = await axios.get(
+          'https://places.ls.hereapi.com/places/v1/autosuggest?at=' +
+            userLocation.latitude +
+            ',' +
+            userLocation.longitude +
+            '&q=' +
+            location +
+            '&apiKey=LPDM4xB5up24Y4vmgMOub8kNxX1pV3nxYcJrIJNctx4',
+        );
+        const results = response.data.results;
+        const allPlaces = [];
+        results.forEach(element => {
+          allPlaces.push({key: element.title});
+        });
+        setPlaces(allPlaces);
+      };
+      hereApiSearch();
+      if (!selected) setShowList(true);
+      else setShowList(false);
+      setSelected(false);
+    }
+  }, [location]);
+
+  return (
+    <>
+      {locationGot ? (
+        <>
+          <TextInput
+            value={location}
+            placeholder="From"
+            style={styles.placeInput}
+            onChangeText={value => setLocation(value)}
+          />
+          {showList ? (
+            <>
+              <ScrollView style={styles.container}>
+                <Card style={{backgroundColor: 'lightgrey'}}>
+                  <FlatList
+                    data={places}
+                    renderItem={({item}) => (
+                      <TouchableOpacity
+                        onPress={() => {
+                          setSelected(true);
+                          setLocation(item.key);
+                        }}>
+                        <Text style={styles.item}>{item.key}</Text>
+                      </TouchableOpacity>
+                    )}
+                  />
+                </Card>
+              </ScrollView>
+            </>
+          ) : null}
+        </>
+      ) : null}
+    </>
   );
 };
 
