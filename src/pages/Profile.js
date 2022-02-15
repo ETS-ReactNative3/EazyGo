@@ -3,9 +3,15 @@ import {Button} from 'react-native-paper';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';
+import { StyleSheet, Text, Pressable } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+import Aboutisuzu from './Aboutisuzu';
+import Aboutus from './Aboutus';
 
 const Profile = () => {
   const [token, setToken] = useContext(AuthStore);
+  const Tab = createMaterialTopTabNavigator();
   const logoutHandler = async () => {
     const userData = await AsyncStorage.getItem('@userdata');
     if (userData) {
@@ -26,9 +32,42 @@ const Profile = () => {
       setToken(null);
     }
   };
+  const styles = StyleSheet.create({
+    button: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 15,
+      margin:16,
+      marginTop:20,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 3,
+      backgroundColor: 'black',
+    },
+    text: {
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
+    },
+  });
+  
+
   return (
-    <>
-      <Button style={{marginTop:300}} onPress={logoutHandler}>Logout</Button>
+    <> 
+      <Tab.Navigator
+        screenOptions={
+          {tabBarPressColor:'black'}
+        }>
+      <Tab.Screen name="About Isuzu" component={Aboutisuzu} />
+      <Tab.Screen name="About Us" component={Aboutus} />
+      
+      </Tab.Navigator>
+    
+    <Pressable style={styles.button} onPress={logoutHandler} >
+      <Text style={styles.text}>Logout</Text>
+    </Pressable>
     </>
   );
 };
