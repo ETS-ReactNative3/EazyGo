@@ -11,7 +11,7 @@ const SplashPage = () => {
           animation="zoomIn"
           style={styles.logo}
           resizeMode="stretch"
-          source={require('../assets/images/Raster.png')}
+          source={require('../assets/images/truck.jpg')}
         />
       </View>
       <Animatable.Text animation="zoomIn">

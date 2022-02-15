@@ -6,6 +6,7 @@ import axios from 'axios';
 import styles from '../styles/PlaceInput';
 import {TouchableOpacity, View, FlatList, Text, ScrollView} from 'react-native';
 import AuthStore from '../store/AuthStore';
+//import Geolocation from '@react-native-community/geolocation';
 const PlacesInput = ({setPlace, label}) => {
   const [places, setPlaces] = useState();
   const [location, setLocation] = useState();
@@ -14,14 +15,11 @@ const PlacesInput = ({setPlace, label}) => {
   const [showList, setShowList] = useState(false);
   const [selected, setSelected] = useState(false);
   useEffect(() => {
-    if (userLocation && location) {
+  console.log(userLocation);
+    if (location) {
       const hereApiSearch = async () => {
         const response = await axios.get(
-          'https://places.ls.hereapi.com/places/v1/autosuggest?at=' +
-            userLocation.latitude +
-            ',' +
-            userLocation.longitude +
-            '&q=' +
+          'https://places.ls.hereapi.com/places/v1/autosuggest?at=27.2046,77.4977&q=' +
             location +
             '&apiKey=LPDM4xB5up24Y4vmgMOub8kNxX1pV3nxYcJrIJNctx4',
         );
