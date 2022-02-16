@@ -13,7 +13,7 @@ const PagesNavigator = () => {
   return (
     <>
       <NavigationContainer>
-        <TabNavigator barStyle={{backgroundColor: colors.PRIMARY}}>
+        <TabNavigator barStyle={{backgroundColor: colors.PRIMARY}} initialRouteName="Rentals">
           <TabScreen name="Cabs" component={Home}/>
           <TabScreen name="Rentals" component={RentalNavigator}/>
           <TabScreen name="More" component={Profile}/>

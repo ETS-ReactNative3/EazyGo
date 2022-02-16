@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
+  Dimensions
 } from 'react-native';
 import axios from 'axios';
 import Carousel from 'react-native-snap-carousel';
@@ -19,6 +20,7 @@ import Scab from '../assets/images/carTypes/scab.jpg';
 import Mux from '../assets/images/carTypes/Mux.jpg';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_API_KEY,HERE_API} from '@env';
+const height = Dimensions.get('window').height;
 const Home = () => {
   const [fare, setFare] = useState();
   const entries = [
@@ -52,7 +54,6 @@ const Home = () => {
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
   const [avail, setavail] = useState(false);
-  //console.log(HERE_API);
   const carRef = useRef();
   const mapRef = useRef();
   const fromSet = value => {
@@ -87,7 +88,7 @@ const Home = () => {
 
   const _renderItem = ({item, index}) => {
     return (
-      <Card style={styles.slide}>
+      <Card style={styles.slide} >
         <Avatar.Image size={200} source={item.images} style={styles.head} />
         <Text style={{color: 'black', textAlign: 'center', fontSize: 20}}>
           Fare: {(item.price*fare).toFixed(2)} Rs
@@ -96,12 +97,14 @@ const Home = () => {
           const response = {
             from : from,
             to : to,
-            rate: ((item.price*fare).toFixed(2))
+            rate: ((item.price*fare).toFixed(2)),
+            type: item.title
           }
           console.log(response);
         }}>
           Book
         </Button>
+        <Button mode='outlined' style={{marginTop:10}}>{item.title}</Button>
       </Card>
     );
   };
@@ -183,15 +186,16 @@ const styles = StyleSheet.create({
     fontSize: 42,
   },
   fullmap: {
-    height: 500,
+    height: height*0.615,
     width: '100%',
     backgroundColor: 'lightgrey',
   },
   slide: {
-    height: 300,
+    height: 340,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
+    marginBottom:30
   },
   card: {
     marginBottom: 20,

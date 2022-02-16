@@ -1,6 +1,7 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useCallback} from 'react';
 import {Button, Avatar} from 'react-native-paper';
 //import axios from 'axios';
+import {Icon} from 'react-native-elements';
 import {Card} from 'react-native-paper';
 import Carousel from 'react-native-snap-carousel';
 import Dmax from '../assets/images/carTypes/Dmax.jpg';
@@ -8,11 +9,18 @@ import HiLander from '../assets/images/carTypes/HiLander.jpg';
 import VCross from '../assets/images/carTypes/VCross.jpg';
 import Scab from '../assets/images/carTypes/scab.jpg';
 import Mux from '../assets/images/carTypes/Mux.jpg';
-import { StyleSheet ,StatusBar,Text} from 'react-native';
+import {StyleSheet, StatusBar, Text} from 'react-native';
+import DatePicker from 'react-native-date-picker';
+import {format} from 'date-fns';
 const RentalBill = ({navigation, route}) => {
   const {title} = route && route.params;
   const [fare, setFare] = useState();
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+  const [toDate, setToDate] = useState(new Date());
+  const [open1, setOpen1] = useState(false);
   const carRef = useRef();
+  const [book, setBook] = useState(false);
   const entries = [
     {
       title: 'S-Cab',
@@ -42,22 +50,51 @@ const RentalBill = ({navigation, route}) => {
   ];
   const sliderWidth = 500,
     itemWidth = 300;
+  
+  const checkRate = async() =>{
+    const d1 = date.getTime();
+    const d2 = toDate.getTime();
+    if((d2-d1)>0){
+      const mod = (d2-d1)/86400000;
+      setFare(mod*1250);
+      setBook(true);
+    }
+  }
+
   const _renderItem = ({item, index}) => {
     return (
       <Card style={styles.slide}>
-        <Avatar.Image size={200} source={item.images} style={styles.head} />
-        <Button
-          mode="contained"
-          style={{marginTop: 10}}
-          onPress={() => {
-            const response = {
-              from: from,
-              to: to,
-              rate: (item.price * fare).toFixed(2),
-            };
-            console.log(response);
-          }}>
-          Book
+        <Avatar.Image size={200} source={item.images} style={{marginTop: 20}} />
+        {book ? (
+          <>
+            <Text
+              style={{
+                color: 'black',
+                textAlign: 'center',
+                fontSize: 20,
+                marginTop: 10,
+              }}>
+              Rate : {(fare*item.price).toFixed(2)} Rs
+            </Text>
+            <Button
+              mode="contained"
+              style={{marginTop: 10}}
+              onPress={() => {
+                const request = {
+                  fromTime : date,
+                  toTime : toDate,
+                  pickUpPoint : title,
+                  rate : (fare*item.price).toFixed(2),
+                  type : item.title
+                }
+                console.log(request)
+              }}>
+              Book
+            </Button>
+          </>
+        ) : null}
+        <Button mode="outlined" style={{marginTop: 10}}>
+          {item.title}
         </Button>
       </Card>
     );
@@ -69,7 +106,96 @@ const RentalBill = ({navigation, route}) => {
         style={{height: 50, alignItems: 'center', justifyContent: 'center'}}>
         Rental Booking
       </Button>
-      <Button style={{color:'#000',fontWeight:'bold',fontSize:30,alignItems:'center',justifyContent:'center',marginTop:20}}>{title} Pickup Point</Button>
+      <Button
+        style={{
+          color: '#000',
+          fontWeight: 'bold',
+          fontSize: 30,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 20,
+          marginBottom: 20,
+        }}>
+        {title} Pickup Point
+      </Button>
+      <Text
+        style={{
+          color: '#000',
+          marginLeft: '10%',
+          fontSize: 17,
+          marginBottom: 10,
+        }}>
+        Rental From Date:
+      </Text>
+      <Button
+        mode="outlined"
+        style={{
+          width: '80%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginHorizontal: '10%',
+        }}
+        onPress={() => setOpen(true)}>
+        {format(date, 'dd-MM-yyyy   -   hh:mm')}
+      </Button>
+      <DatePicker
+        modal
+        open={open}
+        date={date}
+        onConfirm={date => {
+          setOpen(false);
+          setDate(date);
+          console.log(date);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}
+      />
+      <Text
+        style={{
+          color: '#000',
+          marginLeft: '10%',
+          fontSize: 17,
+          marginBottom: 10,
+          marginTop: 20,
+        }}>
+        Rental To Date:
+      </Text>
+      <Button
+        mode="outlined"
+        style={{
+          width: '80%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginHorizontal: '10%',
+          marginTop: 5,
+        }}
+        onPress={() => setOpen1(true)}>
+        {format(toDate, 'dd-MM-yyyy   -   hh:mm')}
+      </Button>
+      <DatePicker
+        modal
+        open={open1}
+        date={toDate}
+        onConfirm={date => {
+          setOpen1(false);
+          setToDate(date);
+          console.log(date);
+        }}
+        onCancel={() => {
+          setOpen1(false);
+        }}
+      />
+      {!book ? (
+        <>
+          <Button
+            mode="contained"
+            onPress={checkRate}
+            style={{width: '90%', marginHorizontal: '5%', marginTop: 25}}>
+            Check Rate
+          </Button>
+        </>
+      ) : null}
       <Carousel
         ref={carRef}
         data={entries}
@@ -106,6 +232,6 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 20,
   },
-})
+});
 
 export default RentalBill;
