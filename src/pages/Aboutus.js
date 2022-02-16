@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from "react-native";
+import {Card} from 'react-native-paper'
 const Aboutus = () => {
     const styles = StyleSheet.create({
         container: {
@@ -9,8 +10,7 @@ const Aboutus = () => {
           textAlign: 'center'
         },
         box:{ 
-            flex: 2, 
-            backgroundColor: "#7cabbf", 
+            flex: 2,  
             padding:10, 
             margin:10,
             borderRadius:20
@@ -19,10 +19,11 @@ const Aboutus = () => {
             color:'black',
             textAlign: 'center',
             fontSize:20,
-            padding:5
+            padding:5,
+            fontWeight:'bold'
         },
         body:{ 
-            color:'white',
+            color:'black',
             fontSize:15,
             padding:5
         },
@@ -41,18 +42,18 @@ const Aboutus = () => {
       
         flexDirection: "column"
         }]}>
-        <View style={styles.box} >
+        <Card style={styles.box} >
             <Text style={styles.heading}>Working Partner</Text>
             <Text style={styles.body}>Help every business and workers with their transportations and hence, acts as a working partner</Text>
-        </View>
-        <View style={styles.box} >
+        </Card>
+        <Card style={styles.box} >
             <Text style={styles.heading}>Car Rental</Text>
             <Text style={styles.body}>We rent cars/trucks for all requirements of people at affordable prices</Text>
-        </View>
-        <View style={styles.box} >
+        </Card>
+        <Card style={styles.box} >
             <Text style={styles.heading}>Taxi Service</Text>
             <Text style={styles.body}>We also provide general Taxi Services for your easy mobility within city.</Text>
-        </View>
+        </Card>
         </View>
         <View style={styles.contact}>
             <Text style={styles.contacttext}>Email Us : support@easygo.com</Text>

@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 //import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import colors from '../assets/theme.colors';
-
+import RentalNavigator from './RentalsNavigator';
 const {Navigator: TabNavigator, Screen: TabScreen} =
   createMaterialBottomTabNavigator();
 const PagesNavigator = () => {
@@ -15,7 +15,7 @@ const PagesNavigator = () => {
       <NavigationContainer>
         <TabNavigator barStyle={{backgroundColor: colors.PRIMARY}}>
           <TabScreen name="Cabs" component={Home}/>
-          <TabScreen name="Rentals" component={About}/>
+          <TabScreen name="Rentals" component={RentalNavigator}/>
           <TabScreen name="More" component={Profile}/>
         </TabNavigator>
       </NavigationContainer>

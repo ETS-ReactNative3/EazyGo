@@ -10,7 +10,6 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native';
-import Config from 'react-native-config';
 import axios from 'axios';
 import Carousel from 'react-native-snap-carousel';
 import Dmax from '../assets/images/carTypes/Dmax.jpg';
@@ -21,7 +20,6 @@ import Mux from '../assets/images/carTypes/Mux.jpg';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_API_KEY,HERE_API} from '@env';
 const Home = () => {
-  console.log(Config.GOOGLE_MAPS_API_KEY)
   const [fare, setFare] = useState();
   const entries = [
     {
