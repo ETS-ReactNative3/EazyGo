@@ -7,13 +7,15 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
     height: 47,
     marginTop: 10,
-    backgroundColor: colors.WHITE,
   },
   container: {
     flex: 1,
-    maxHeight: 200,
     width: '90%',
     marginHorizontal: '5%',
+  },
+  card: {
+    margin: 6,
+    marginVertical: 10,
   },
   item: {
     padding: 10,
@@ -25,6 +27,9 @@ const styles = StyleSheet.create({
   scrollCont: {
     maxHeight: 20,
   },
+  head:{
+    backgroundColor:'white'
+  }
 });
 
 export default styles;

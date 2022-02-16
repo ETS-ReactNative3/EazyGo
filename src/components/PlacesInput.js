@@ -1,73 +1,72 @@
-import React, {useState, useEffect, useContext} from 'react';
-import Config from 'react-native-config';
-import {TextInput, Card} from 'react-native-paper';
-import Geolocation from '@react-native-community/geolocation';
-import axios from 'axios';
-import styles from '../styles/PlaceInput';
-import {TouchableOpacity, View, FlatList, Text, ScrollView} from 'react-native';
+import React, {useState, useEffect, useContext, useRef} from 'react';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import AuthStore from '../store/AuthStore';
-//import Geolocation from '@react-native-community/geolocation';
+import {GOOGLE_MAPS_API_KEY} from '@env';
 const PlacesInput = ({setPlace, label}) => {
-  const [places, setPlaces] = useState();
-  const [location, setLocation] = useState();
   const [token, setToken, userLocation] = useContext(AuthStore);
-  const [locationGot, setLocationGot] = useState(false);
-  const [showList, setShowList] = useState(false);
-  const [selected, setSelected] = useState(false);
-  useEffect(() => {
-  console.log(userLocation);
-    if (location) {
-      const hereApiSearch = async () => {
-        const response = await axios.get(
-          'https://places.ls.hereapi.com/places/v1/autosuggest?at=27.2046,77.4977&q=' +
-            location +
-            '&apiKey=LPDM4xB5up24Y4vmgMOub8kNxX1pV3nxYcJrIJNctx4',
-        );
-        const results = response.data.results;
-        const allPlaces = [];
-        for (let i = 0; i < results.length / 2 + 1; i++) {
-          allPlaces.push({key: results[i].title});
-        }
-        setPlaces(allPlaces);
-      };
-      hereApiSearch();
-    }
-  }, [location]);
-  useEffect(() => {
-    if (!selected) {
-      setShowList(false);
-      setShowList(true);
-    } else setShowList(false);
-    setSelected(false);
-  }, [places]);
+  const [defaultLocation, setdefaultLocation] = useState('');
+  const ref = useRef();
   return (
     <>
-      <TextInput
-        value={location}
+      <GooglePlacesAutocomplete
+        onPress={async (data, details = null) => {
+          console.log(details.formatted_address, details.geometry);
+          let response = {
+            title: details.formatted_address,
+            geometry: {
+              latitude: details.geometry.location.lat,
+              longitude: details.geometry.location.lng,
+            },
+          };
+          console.log(response);
+          setPlace(response);
+        }}
+        ref={ref}
+        query={{
+          key: GOOGLE_MAPS_API_KEY,
+          language: 'en',
+        }}
         placeholder={label}
-        style={styles.placeInput}
-        onChangeText={value => setLocation(value)}
+        placeholderTextColor="#000"
+        fetchDetails={true}
+        debounce={200}
+        keyboardShouldPersistTaps={'handled'}
+        listViewDisplayed={false}
+        listUnderlayColor={'transparent'}
+        returnKeyType={'search'}
+        enableHighAccuracyLocation={true}
+        filterReverseGeocodingByTypes={[
+          'locality',
+          'administrative_area_level_3',
+        ]}
+        styles={{
+          container: {
+            borderColor: '#000',
+            borderWidth: 0.5,
+            color: '#000',
+            backgroundColor: 'white',
+            alignItems: 'center',
+            width: '100%',
+            flexGrow: 1,
+          },
+          textInputContainer: {
+            fontSize: 16,
+            alignItems: 'center',
+            borderColor: 'black',
+            placeholderTextColor: '#000',
+          },
+          textInput: {color: 'black'},
+          listView: {color: 'black', opacity: 1, width: '100%'},
+          row: {color: 'black'},
+          predefinedPlacesDescription: {color: 'black'},
+          description: {color: 'black'},
+        }}
+        textInputProps={{
+          onChangeText: text => {
+            setdefaultLocation(text);
+          },
+        }}
       />
-      {showList && places && location ? (
-        <>
-          <ScrollView style={styles.container}>
-            <Card style={{backgroundColor: 'lightgrey'}}>
-              {places.map(item => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setSelected(true);
-                      setLocation(item.key);
-                      setPlace(item.key);
-                    }}>
-                    <Text style={styles.item}>{item.key}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </Card>
-          </ScrollView>
-        </>
-      ) : null}
     </>
   );
 };

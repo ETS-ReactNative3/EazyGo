@@ -14,8 +14,8 @@ const PagesNavigator = () => {
     <>
       <NavigationContainer>
         <TabNavigator barStyle={{backgroundColor: colors.PRIMARY}}>
-          <TabScreen name="Home" component={Home}/>
-          <TabScreen name="Rental" component={About}/>
+          <TabScreen name="Cabs" component={Home}/>
+          <TabScreen name="Rentals" component={About}/>
           <TabScreen name="More" component={Profile}/>
         </TabNavigator>
       </NavigationContainer>
