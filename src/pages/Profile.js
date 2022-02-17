@@ -10,7 +10,7 @@ import Aboutisuzu from './Aboutisuzu';
 import Aboutus from './Aboutus';
 
 const Profile = () => {
-  const [token, setToken] = useContext(AuthStore);
+  const [token, setToken,userLocation] = useContext(AuthStore);
   const Tab = createMaterialTopTabNavigator();
   const logoutHandler = async () => {
     const userData = await AsyncStorage.getItem('@userdata');

@@ -94,6 +94,7 @@ const Home = () => {
           Fare: {(item.price*fare).toFixed(2)} Rs
         </Text>
         <Button mode="contained" style={{marginTop: 10}} onPress={()=>{
+          setLoader(true);
           const response = {
             from : from,
             to : to,
@@ -101,6 +102,7 @@ const Home = () => {
             type: item.title
           }
           console.log(response);
+          setLoader(false);
         }}>
           Book
         </Button>
