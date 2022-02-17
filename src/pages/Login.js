@@ -56,7 +56,7 @@ const Login = () => {
       <View style={styles.container}>
         <Avatar.Image
           size={140}
-          source={require('../assets/images/Raster.png')}
+          source={require('../assets/images/logoii.jpg')}
           style={styles.head}
         />
         <Text style={styles.header}>EazyGo</Text>
