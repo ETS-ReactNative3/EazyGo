@@ -58,9 +58,10 @@ const Profile = () => {
     <> 
       <Tab.Navigator
         screenOptions={
-          {tabBarPressColor:'black'}
+          {tabBarPressColor:'black'},
+          {swipeEnabled:false}
         }>
-      <Tab.Screen name="About Isuzu" component={Aboutisuzu} />
+      <Tab.Screen name="About Isuzu" component={Aboutisuzu} swipeEnabled={false}/>
       <Tab.Screen name="About Us" component={Aboutus} />
       
       </Tab.Navigator>
