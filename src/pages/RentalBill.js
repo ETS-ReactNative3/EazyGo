@@ -155,7 +155,6 @@ const RentalBill = ({navigation, route}) => {
         onConfirm={date => {
           setOpen(false);
           setDate(date);
-          console.log(date);
         }}
         onCancel={() => {
           setOpen(false);
@@ -190,7 +189,6 @@ const RentalBill = ({navigation, route}) => {
         onConfirm={date => {
           setOpen1(false);
           setToDate(date);
-          console.log(date);
         }}
         onCancel={() => {
           setOpen1(false);
