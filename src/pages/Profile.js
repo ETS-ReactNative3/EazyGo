@@ -8,9 +8,10 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import Aboutisuzu from './Aboutisuzu';
 import Aboutus from './Aboutus';
+import Carmodels from './Carmodels.js'
 
 const Profile = () => {
-  const [token, setToken] = useContext(AuthStore);
+  const [token, setToken,userLocation] = useContext(AuthStore);
   const Tab = createMaterialTopTabNavigator();
   const logoutHandler = async () => {
     const userData = await AsyncStorage.getItem('@userdata');
@@ -59,11 +60,12 @@ const Profile = () => {
       <Tab.Navigator
         swipeEnabled={false}
         screenOptions={
-          { tabBarPressColor: 'black' }
+          {tabBarPressColor:'black'},
+          {swipeEnabled:false}
         }>
-        <Tab.Screen name="About Isuzu" component={Aboutisuzu} />
-        <Tab.Screen name="About Us" component={Aboutus} />
-
+      <Tab.Screen name="About Isuzu" component={Aboutisuzu} swipeEnabled={false}/>
+      <Tab.Screen name="Car Models" component={Carmodels} />
+      <Tab.Screen name="About Us" component={Aboutus} />
       </Tab.Navigator>
 
       <Pressable style={styles.button} onPress={logoutHandler} >

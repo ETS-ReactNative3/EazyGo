@@ -7,11 +7,13 @@ import {Avatar} from 'react-native-paper';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';
+import Loader from '../components/Loader';
 
 const Login = () => {
   const [email_phone, setEmail_Phone] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useContext(AuthStore);
+  const [token, setToken, userLocation] = useContext(AuthStore);
+  const [loader, setLoader] = useState(false);
   const email_phone_Set = value => {
     setEmail_Phone(value);
   };
@@ -25,83 +27,96 @@ const Login = () => {
     console.log('Signup Called');
   };
   const loginHandler = async () => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const payload = {
-      email: email_phone,
-      password: password,
-    };
-    try {
-      const response = await axios.post(
-        'https://easy-go-nec.herokuapp.com/v1/auth/login',
-        payload,
-        config,
-      );
-      if (response) {
-        if (response.data) {
-          await AsyncStorage.setItem('@userdata', response.data.token);
-          setToken(response.data.token);
+    setLoader(true);
+    setTimeout(async () => {
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const payload = {
+          email: email_phone,
+          password: password,
+        };
+        try {
+          const response = await axios.post(
+            'https://easy-go-nec.herokuapp.com/v1/auth/login',
+            payload,
+            config,
+          );
+          if (response) {
+            if (response.data) {
+              await AsyncStorage.setItem('@userdata', response.data.token);
+              setToken(response.data.token);
+            }
+          }
+        } catch (err) {
+          console.log(err);
         }
-      }
-    } catch (err) {
-      console.log(err);
-    }
+        setLoader(false);
+      },
+      1000);
   };
 
   return (
-    <View style={styles.cont}>
-      <View style={styles.container}>
-        <Avatar.Image
-          size={140}
-          source={require('../assets/images/logoii.jpg')}
-          style={styles.head}
-        />
-        <Text style={styles.header}>EazyGo</Text>
-      </View>
-      <View style={styles.card_cont}>
-        <Card style={styles.card}>
-          <Card.Content>
-            <View style={styles.signincont}>
-              <Text style={styles.signin}>LOGIN</Text>
-            </View>
-            <TextInputPaper
-              label="Email/Phone"
-              value={email_phone}
-              onChange={email_phone_Set}
-              style={styles.textField}
+    <>
+      {loader ? (
+        <Loader />
+      ) : (
+        <View style={styles.cont}>
+          <View style={styles.container}>
+            <Avatar.Image
+              size={140}
+              source={require('../assets/images/logoii.jpg')}
+              style={styles.head}
             />
-            <TextInputPaper
-              label="Password"
-              value={password}
-              secureTextEntry={true}
-              onChange={passwordSet}
-              style={styles.textField}
-            />
-            <Button
-              mode="contained"
-              onPress={loginHandler}
-              style={styles.login_btn}>
-              Login
-            </Button>
-            <View>
-              <TouchableOpacity onPress={frgt_pswd}>
-                <Text style={styles.forgotpswd}>
-                  Forgot Password? Need Help
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity onPress={signup}>
-                <Text style={styles.signup}>Dont have an Account? Sign Up</Text>
-              </TouchableOpacity>
-            </View>
-          </Card.Content>
-        </Card>
-      </View>
-    </View>
+            <Text style={styles.header}>EazyGo</Text>
+          </View>
+          <View style={styles.card_cont}>
+            <Card style={styles.card}>
+              <Card.Content>
+                <View style={styles.signincont}>
+                  <Text style={styles.signin}>LOGIN</Text>
+                </View>
+                <TextInputPaper
+                  label="Email/Phone"
+                  value={email_phone}
+                  onChange={email_phone_Set}
+                  style={styles.textField}
+                />
+                <TextInputPaper
+                  label="Password"
+                  value={password}
+                  secureTextEntry={true}
+                  onChange={passwordSet}
+                  style={styles.textField}
+                />
+                <Button
+                  mode="contained"
+                  onPress={loginHandler}
+                  style={styles.login_btn}>
+                  Login
+                </Button>
+                <View>
+                  <TouchableOpacity onPress={frgt_pswd}>
+                    <Text style={styles.forgotpswd}>
+                      Forgot Password? Need Help
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  <TouchableOpacity onPress={signup}>
+                    <Text style={styles.signup}>
+                      Dont have an Account? Sign Up
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </Card.Content>
+            </Card>
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 

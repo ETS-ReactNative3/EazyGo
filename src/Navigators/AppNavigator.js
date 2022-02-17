@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PagesNavigator from './PagesNavigator';
 import AuthNavigator from './AuthNavigator';
-// import {PermissionsAndroid, AppState} from 'react-native';
-// import Geolocation from 'react-native-geolocation-service';
-// import {showMessage} from 'react-native-flash-message';
 import SplashPage from '../pages/SplashPage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';

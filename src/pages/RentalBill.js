@@ -13,7 +13,7 @@ import {StyleSheet, StatusBar, Text} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns';
 const RentalBill = ({navigation, route}) => {
-  const {title} = route && route.params;
+  const {title, availability} = route && route.params;
   const [fare, setFare] = useState();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -26,46 +26,51 @@ const RentalBill = ({navigation, route}) => {
       title: 'S-Cab',
       images: Scab,
       price: 1,
+      availability: availability[0].scab,
     },
     {
       title: 'muX',
       images: Mux,
       price: 1.4,
+      availability: availability[0].mux,
     },
     {
       title: 'HiLander',
       images: HiLander,
       price: 2,
+      availability: availability[0].hilander,
     },
     {
       title: 'D-Max',
       images: Dmax,
       price: 0.75,
+      availability: availability[0].dmax,
     },
     {
       title: 'V-Cross',
       images: VCross,
       price: 1.75,
+      availability: availability[0].vcross,
     },
   ];
   const sliderWidth = 500,
     itemWidth = 300;
-  
-  const checkRate = async() =>{
+
+  const checkRate = async () => {
     const d1 = date.getTime();
     const d2 = toDate.getTime();
-    if((d2-d1)>0){
-      const mod = (d2-d1)/86400000;
-      setFare(mod*1250);
+    if (d2 - d1 > 0) {
+      const mod = (d2 - d1) / 86400000;
+      setFare(mod * 1250);
       setBook(true);
     }
-  }
+  };
 
   const _renderItem = ({item, index}) => {
     return (
       <Card style={styles.slide}>
         <Avatar.Image size={200} source={item.images} style={{marginTop: 20}} />
-        {book ? (
+        {book && item.availability ? (
           <>
             <Text
               style={{
@@ -74,20 +79,20 @@ const RentalBill = ({navigation, route}) => {
                 fontSize: 20,
                 marginTop: 10,
               }}>
-              Rate : {(fare*item.price).toFixed(2)} Rs
+              Rate : {(fare * item.price).toFixed(2)} Rs
             </Text>
             <Button
               mode="contained"
               style={{marginTop: 10}}
               onPress={() => {
                 const request = {
-                  fromTime : date,
-                  toTime : toDate,
-                  pickUpPoint : title,
-                  rate : (fare*item.price).toFixed(2),
-                  type : item.title
-                }
-                console.log(request)
+                  fromTime: date,
+                  toTime: toDate,
+                  pickUpPoint: title,
+                  rate: (fare * item.price).toFixed(2),
+                  type: item.title,
+                };
+                console.log(request);
               }}>
               Book
             </Button>
@@ -96,6 +101,11 @@ const RentalBill = ({navigation, route}) => {
         <Button mode="outlined" style={{marginTop: 10}}>
           {item.title}
         </Button>
+        {item.availability ? (
+          <Button>Availability : {item.availability}</Button>
+        ) : (
+          <Button color="red">Currently Unavailable</Button>
+        )}
       </Card>
     );
   };
@@ -145,7 +155,6 @@ const RentalBill = ({navigation, route}) => {
         onConfirm={date => {
           setOpen(false);
           setDate(date);
-          console.log(date);
         }}
         onCancel={() => {
           setOpen(false);
@@ -180,7 +189,6 @@ const RentalBill = ({navigation, route}) => {
         onConfirm={date => {
           setOpen1(false);
           setToDate(date);
-          console.log(date);
         }}
         onCancel={() => {
           setOpen1(false);
