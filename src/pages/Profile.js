@@ -1,5 +1,5 @@
-import React,{useContext} from 'react';
-import {Button} from 'react-native-paper';
+import React, { useContext } from 'react';
+import { Button } from 'react-native-paper';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';
@@ -37,8 +37,8 @@ const Profile = () => {
       alignItems: 'center',
       justifyContent: 'center',
       paddingVertical: 15,
-      margin:16,
-      marginTop:20,
+      margin: 16,
+      marginTop: 20,
       paddingHorizontal: 32,
       borderRadius: 4,
       elevation: 3,
@@ -52,22 +52,23 @@ const Profile = () => {
       color: 'white',
     },
   });
-  
+
 
   return (
-    <> 
+    <>
       <Tab.Navigator
+        swipeEnabled={false}
         screenOptions={
-          {tabBarPressColor:'black'}
+          { tabBarPressColor: 'black' }
         }>
-      <Tab.Screen name="About Isuzu" component={Aboutisuzu} />
-      <Tab.Screen name="About Us" component={Aboutus} />
-      
+        <Tab.Screen name="About Isuzu" component={Aboutisuzu} />
+        <Tab.Screen name="About Us" component={Aboutus} />
+
       </Tab.Navigator>
-    
-    <Pressable style={styles.button} onPress={logoutHandler} >
-      <Text style={styles.text}>Logout</Text>
-    </Pressable>
+
+      <Pressable style={styles.button} onPress={logoutHandler} >
+        <Text style={styles.text}>Logout</Text>
+      </Pressable>
     </>
   );
 };
