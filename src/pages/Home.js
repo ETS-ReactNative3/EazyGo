@@ -9,7 +9,7 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import axios from 'axios';
 import Carousel from 'react-native-snap-carousel';
@@ -19,35 +19,41 @@ import VCross from '../assets/images/carTypes/VCross.jpg';
 import Scab from '../assets/images/carTypes/scab.jpg';
 import Mux from '../assets/images/carTypes/Mux.jpg';
 import MapViewDirections from 'react-native-maps-directions';
-import {GOOGLE_MAPS_API_KEY,HERE_API} from '@env';
+import {GOOGLE_MAPS_API_KEY, HERE_API, BASE_URL} from '@env';
+
 const height = Dimensions.get('window').height;
-const Home = () => {
+const Home = ({navigation}) => {
   const [fare, setFare] = useState();
   const entries = [
     {
       title: 'S-Cab',
       images: Scab,
-      price: 1
+      price: 1,
+      type: 'scab',
     },
     {
       title: 'muX',
       images: Mux,
-      price: 1.4
+      price: 1.4,
+      type: 'mux',
     },
     {
       title: 'HiLander',
       images: HiLander,
-      price : 2
+      price: 2,
+      type: 'hilander',
     },
     {
       title: 'D-Max',
       images: Dmax,
-      price: 0.75
+      price: 0.75,
+      type: 'dmax',
     },
     {
       title: 'V-Cross',
       images: VCross,
-      price: 1.75
+      price: 1.75,
+      type: 'vcross',
     },
   ];
   const [token, setToken, userLocation] = useContext(AuthStore);
@@ -62,9 +68,9 @@ const Home = () => {
   const toSet = value => {
     setTo(value);
   };
-  useEffect(()=>{
+  useEffect(() => {
     setavail(false);
-  },[from,to])
+  }, [from, to]);
   const rateCheck = async () => {
     if (from && to) {
       const response = await axios.get(
@@ -76,9 +82,10 @@ const Home = () => {
           String(to.geometry.latitude) +
           ',' +
           String(to.geometry.longitude) +
-          '&return=summary&apiKey='+String(HERE_API),
+          '&return=summary&apiKey=' +
+          String(HERE_API),
       );
-      console.log(response.data)
+      console.log(response.data);
       setFare(
         (response.data.routes[0].sections[0].summary.length / 50).toFixed(2),
       );
@@ -88,25 +95,37 @@ const Home = () => {
 
   const _renderItem = ({item, index}) => {
     return (
-      <Card style={styles.slide} >
+      <Card style={styles.slide}>
         <Avatar.Image size={200} source={item.images} style={styles.head} />
         <Text style={{color: 'black', textAlign: 'center', fontSize: 20}}>
-          Fare: {(item.price*fare).toFixed(2)} Rs
+          Fare: {(item.price * fare).toFixed(2)} Rs
         </Text>
-        <Button mode="contained" style={{marginTop: 10}} onPress={()=>{
-          setLoader(true);
-          const response = {
-            from : from,
-            to : to,
-            rate: ((item.price*fare).toFixed(2)),
-            type: item.title
-          }
-          console.log(response);
-          setLoader(false);
-        }}>
+        <Button
+          mode="contained"
+          style={{marginTop: 10}}
+          onPress={async () => {
+            const response = {
+              type: item.type,
+            };
+            const config = {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: token,
+              },
+            };
+            const resp = await axios.post(BASE_URL + 'cabs', response, config);
+            console.log(resp.data)
+            if (resp.data)
+              navigation.navigate({
+                name: 'CabBook',
+                params: {item: item, response: resp.data, price: (item.price * fare).toFixed(2), from: from, to:to},
+              });
+          }}>
           Book
         </Button>
-        <Button mode='outlined' style={{marginTop:10}}>{item.title}</Button>
+        <Button mode="outlined" style={{marginTop: 10}}>
+          {item.title}
+        </Button>
       </Card>
     );
   };
@@ -166,7 +185,10 @@ const Home = () => {
                 itemWidth={itemWidth}
               />
             ) : (
-              <Button mode="contained" style={{marginTop: 10}} onPress={rateCheck}>
+              <Button
+                mode="contained"
+                style={{marginTop: 10}}
+                onPress={rateCheck}>
                 Check Rate
               </Button>
             )}
@@ -188,7 +210,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
   },
   fullmap: {
-    height: height*0.615,
+    height: height * 0.615,
     width: '100%',
     backgroundColor: 'lightgrey',
   },
@@ -197,7 +219,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
-    marginBottom:30
+    marginBottom: 30,
   },
   card: {
     marginBottom: 20,

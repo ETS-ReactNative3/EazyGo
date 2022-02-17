@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import colors from '../assets/theme.colors';
 import RentalNavigator from './RentalsNavigator';
+import CabNavigator from './CabNavigator';
 const {Navigator: TabNavigator, Screen: TabScreen} =
   createMaterialBottomTabNavigator();
 const PagesNavigator = () => {
@@ -14,7 +15,7 @@ const PagesNavigator = () => {
     <>
       <NavigationContainer>
         <TabNavigator barStyle={{backgroundColor: colors.PRIMARY}} initialRouteName="Rentals">
-          <TabScreen name="Cabs" component={Home}/>
+          <TabScreen name="Cabs" component={CabNavigator}/>
           <TabScreen name="Rentals" component={RentalNavigator}/>
           <TabScreen name="More" component={Profile}/>
         </TabNavigator>
