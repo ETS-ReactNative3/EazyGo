@@ -51,13 +51,6 @@ const RentalBill = ({navigation, route}) => {
       type: 'hilander',
     },
     {
-      title: 'D-Max',
-      images: Dmax,
-      price: 0.75,
-      availability: availability[0].dmax,
-      type: 'dmax',
-    },
-    {
       title: 'V-Cross',
       images: VCross,
       price: 1.75,
@@ -90,7 +83,7 @@ const RentalBill = ({navigation, route}) => {
     return (
       <Card style={styles.slide}>
         <Avatar.Image size={200} source={item.images} style={{marginTop: 20}} />
-        {book && item.availability ? (
+        {book && item.availability > 0 ? (
           <>
             <Text
               style={{
@@ -117,7 +110,13 @@ const RentalBill = ({navigation, route}) => {
                   }
                 }
                 const response = await axios.post(BASE_URL+'cabs/rental',request,config);
-                console.log(response);
+                showMessage({
+                  message: "Rental Pickup Truck Booked",
+                  type: "success",
+                  style:{
+                    alignItems:'center'
+                  }
+                });
               }}>
               Book
             </Button>

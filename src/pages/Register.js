@@ -9,10 +9,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';
 import Loader from '../components/Loader';
 import {showMessage} from 'react-native-flash-message';
-
+import {BASE_URL} from '@env ';
 const Register = () => {
   const [email_phone, setEmail_Phone] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword,setConfirmPassword] = useState('');
   const [token, setToken, userLocation] = useContext(AuthStore);
   const [loader, setLoader] = useState(false);
   const email_phone_Set = value => {
@@ -21,6 +22,9 @@ const Register = () => {
   const passwordSet = value => {
     setPassword(value);
   };
+  const confirmpasswordSet = value =>{
+    setConfirmPassword(value);
+  }
   const frgt_pswd = () => {
     console.log('Forgot Password Called');
   };
@@ -30,33 +34,28 @@ const Register = () => {
   const loginHandler = async () => {
     setLoader(true);
     setTimeout(async () => {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        const payload = {
-          email: email_phone,
-          password: password,
-        };
-        try {
-          const response = await axios.post(
-            'https://easy-go-nec.herokuapp.com/v1/auth/login',
-            payload,
-            config,
-          );
-          if (response) {
-            if (response.data) {
-              await AsyncStorage.setItem('@userdata', response.data.token);
-              setToken(response.data.token);
-            }
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const payload = {
+        email: email_phone,
+        password: password,
+      };
+      try {
+        const response = await axios.post('regsiter', payload, config);
+        if (response) {
+          if (response.data) {
+            await AsyncStorage.setItem('@userdata', response.data.token);
+            setToken(response.data.token);
           }
-        } catch (err) {
-          console.log(err);
         }
-        setLoader(false);
-      },
-      1000);
+      } catch (err) {
+        console.log(err);
+      }
+      setLoader(false);
+    }, 1000);
   };
 
   return (
@@ -77,7 +76,7 @@ const Register = () => {
             <Card style={styles.card}>
               <Card.Content>
                 <View style={styles.signincont}>
-                  <Text style={styles.signin}>LOGIN</Text>
+                  <Text style={styles.signin}>Register</Text>
                 </View>
                 <TextInputPaper
                   label="Email/Phone"
@@ -92,11 +91,18 @@ const Register = () => {
                   onChange={passwordSet}
                   style={styles.textField}
                 />
+                <TextInputPaper
+                  label="Confirm Password"
+                  value={confirmPassword}
+                  secureTextEntry={true}
+                  onChange={confirmpasswordSet}
+                  style={styles.textField}
+                />
                 <Button
                   mode="contained"
                   onPress={loginHandler}
                   style={styles.login_btn}>
-                  Login
+                  Register
                 </Button>
                 <View>
                   <TouchableOpacity onPress={frgt_pswd}>
@@ -108,7 +114,7 @@ const Register = () => {
                 <View>
                   <TouchableOpacity onPress={signup}>
                     <Text style={styles.signup}>
-                      Dont have an Account? Sign Up
+                      Already have an Account? Login
                     </Text>
                   </TouchableOpacity>
                 </View>
