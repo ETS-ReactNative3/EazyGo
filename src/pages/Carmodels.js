@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     },
     cards: {
         marginTop: 80,
+        borderRadius:25
     },
     location: {
         fontSize: 16,
