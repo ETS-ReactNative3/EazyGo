@@ -1,7 +1,5 @@
-import React, {useState, useRef, useCallback} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {Button, Avatar} from 'react-native-paper';
-//import axios from 'axios';
-import {Icon} from 'react-native-elements';
 import {Card} from 'react-native-paper';
 import Carousel from 'react-native-snap-carousel';
 import Dmax from '../assets/images/carTypes/Dmax.jpg';
@@ -21,6 +19,9 @@ const RentalBill = ({navigation, route}) => {
   const [open1, setOpen1] = useState(false);
   const carRef = useRef();
   const [book, setBook] = useState(false);
+  useEffect(() => {
+    setBook(false);
+  }, [date, toDate]);
   const entries = [
     {
       title: 'S-Cab',

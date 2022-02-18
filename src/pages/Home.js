@@ -20,7 +20,7 @@ import Scab from '../assets/images/carTypes/scab.jpg';
 import Mux from '../assets/images/carTypes/Mux.jpg';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_API_KEY, HERE_API, BASE_URL} from '@env';
-
+import {showMessage} from 'react-native-flash-message';
 const height = Dimensions.get('window').height;
 const Home = ({navigation}) => {
   const [fare, setFare] = useState();
@@ -91,6 +91,15 @@ const Home = ({navigation}) => {
       );
       setavail(true);
     }
+    else{
+      showMessage({
+        message: "Please enter the pickup and drop Location",
+        type: "danger",
+        style:{
+          alignItems:'center'
+        }
+      });
+    }
   };
 
   const _renderItem = ({item, index}) => {
@@ -102,7 +111,6 @@ const Home = ({navigation}) => {
         </Text>
         <Button
           mode="contained"
-          style={{marginTop: 10}}
           onPress={async () => {
             const response = {
               type: item.type,
@@ -114,11 +122,16 @@ const Home = ({navigation}) => {
               },
             };
             const resp = await axios.post(BASE_URL + 'cabs', response, config);
-            console.log(resp.data)
             if (resp.data)
               navigation.navigate({
                 name: 'CabBook',
-                params: {item: item, response: resp.data, price: (item.price * fare).toFixed(2), from: from, to:to},
+                params: {
+                  item: item,
+                  response: resp.data,
+                  price: (item.price * fare).toFixed(2),
+                  from: from,
+                  to: to,
+                },
               });
           }}>
           Book
@@ -140,7 +153,9 @@ const Home = ({navigation}) => {
             style={styles.scrollView}
             keyboardShouldPersistTaps="always">
             <Card style={styles.card}>
+              <Button mode="contained">From</Button>
               <PlacesInput setPlace={fromSet} label={'From Destination'} />
+              <Button mode="contained">To</Button>
               <PlacesInput setPlace={toSet} label={'To Destination'} />
             </Card>
             <Card style={styles.mapcont}>

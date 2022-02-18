@@ -9,7 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';
 import Loader from '../components/Loader';
 import {showMessage} from 'react-native-flash-message';
-const Login = () => {
+
+const Register = () => {
   const [email_phone, setEmail_Phone] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken, userLocation] = useContext(AuthStore);
@@ -120,4 +121,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
