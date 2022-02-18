@@ -3,7 +3,7 @@ import { Button } from 'react-native-paper';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';
-import { StyleSheet, Text, Pressable } from 'react-native';
+import { StyleSheet, Text, Pressable, Linking } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import Aboutisuzu from './Aboutisuzu';
@@ -67,7 +67,11 @@ const Profile = () => {
       <Tab.Screen name="Car Models" component={Carmodels} />
       <Tab.Screen name="About Us" component={Aboutus} />
       </Tab.Navigator>
-
+      <Button mode='none' onPress={async()=>{
+        await Linking.openURL('https://www.isuzu.in/product/');
+      }}>
+        More On Isuzu
+      </Button>
       <Pressable style={styles.button} onPress={logoutHandler} >
         <Text style={styles.text}>Logout</Text>
       </Pressable>
