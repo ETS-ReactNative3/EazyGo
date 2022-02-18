@@ -2,9 +2,9 @@
 
 ## Automobile Digital Transformation
 
-**EASYGO** is a React Native based application which tries to promote Digitalization of Automobiles and Promotion of Pickup Trucks in India. This Appplication provides Cab service as well as Truck Rental service, that includes ISUZU Pickup trucks, Cars and Convertibles. It is also made uder-friendly to make it easily accessible to all those who are in need.
+**EASYGO** is a React Native based application which tries to promote Digitalization of Automobiles and Promotion of Pickup Trucks in India. This Appplication provides Cab service as well as Truck Rental service, that includes ISUZU Pickup trucks, Cars and Convertibles. It is also made uder-friendly to make it easily accessible to all those who are in need and cannot afford to buy the vehicle.
 
-We, **EasyGO** , try to fully utilize all the merits of ISUZU Pickup trucks including Efficient Engines, Maximum Power and most importantly, Huge Private space. ISUZU trucks also prioritize Driver's safety over everything else. 
+We, **EasyGO** , try to fully utilize all the merits of ISUZU Pickup trucks including Efficient Engines, Maximum Power, Multi-terrain tech and most importantly, Huge Private space. ISUZU trucks also prioritize Driver's safety over everything else. We reccommend and rent specific truck models for specific requirements. 
 
 ## Tech Used
 
@@ -26,7 +26,7 @@ $ git clone https://github.com/MPS-Ledgers/easyGo.git
 
 In the project directory, you can run:
 
--   Install the Dependencies from `npm`
+-   Install the Dependencies required from `npm`
 
 ```
 $ npm i
@@ -46,7 +46,7 @@ $ npm run android
 
 ```
 moni@gmail.com - 123456
-loki@middlemen.com - 123456
+loki@gmail.com - 123456
 ```
 
 ## Team:
