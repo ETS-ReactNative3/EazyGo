@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStore from '../store/AuthStore';
 import { StyleSheet, Text, Pressable, Linking } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
+import {BASE_URL} from '@env';
 import Aboutisuzu from './Aboutisuzu';
 import Aboutus from './Aboutus';
 import Carmodels from './Carmodels.js'
@@ -25,7 +25,7 @@ const Profile = () => {
       };
       const data = {};
       await axios.post(
-        'https://easy-go-nec.herokuapp.com/v1/auth/logout',
+        BASE_URL,
         data,
         config,
       );
@@ -67,7 +67,7 @@ const Profile = () => {
       <Tab.Screen name="Car Models" component={Carmodels} />
       <Tab.Screen name="About Us" component={Aboutus} />
       </Tab.Navigator>
-      <Button mode='none' onPress={async()=>{
+      <Button mode='outlined' style={{marginHorizontal:'5%',width:'90%'}} onPress={async()=>{
         await Linking.openURL('https://www.isuzu.in/product/');
       }}>
         More On Isuzu

@@ -79,6 +79,7 @@ const About = ({navigation}) => {
                                 params: {
                                   title: item.description,
                                   availability: item.availability,
+                                  items: item
                                 },
                               });
                             }, 1000);

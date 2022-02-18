@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect,useContext} from 'react';
 import {Button, Avatar} from 'react-native-paper';
 import {Card} from 'react-native-paper';
 import Carousel from 'react-native-snap-carousel';
@@ -10,8 +10,13 @@ import Mux from '../assets/images/carTypes/Mux.jpg';
 import {StyleSheet, StatusBar, Text} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns';
+import {showMessage} from 'react-native-flash-message';
+import axios from 'axios';
+import {BASE_URL} from '@env';
+import AuthStore from '../store/AuthStore';
 const RentalBill = ({navigation, route}) => {
-  const {title, availability} = route && route.params;
+  const {title, availability, items} = route && route.params;
+  //console.log(items)
   const [fare, setFare] = useState();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -19,6 +24,7 @@ const RentalBill = ({navigation, route}) => {
   const [open1, setOpen1] = useState(false);
   const carRef = useRef();
   const [book, setBook] = useState(false);
+  const [token,setToken,userLocation] = useContext(AuthStore);
   useEffect(() => {
     setBook(false);
   }, [date, toDate]);
@@ -28,30 +34,35 @@ const RentalBill = ({navigation, route}) => {
       images: Scab,
       price: 1,
       availability: availability[0].scab,
+      type: 'scab',
     },
     {
       title: 'muX',
       images: Mux,
       price: 1.4,
       availability: availability[0].mux,
+      type: 'mux',
     },
     {
       title: 'HiLander',
       images: HiLander,
       price: 2,
       availability: availability[0].hilander,
+      type: 'hilander',
     },
     {
       title: 'D-Max',
       images: Dmax,
       price: 0.75,
       availability: availability[0].dmax,
+      type: 'dmax',
     },
     {
       title: 'V-Cross',
       images: VCross,
       price: 1.75,
       availability: availability[0].vcross,
+      type: 'vcross',
     },
   ];
   const sliderWidth = 500,
@@ -60,10 +71,18 @@ const RentalBill = ({navigation, route}) => {
   const checkRate = async () => {
     const d1 = date.getTime();
     const d2 = toDate.getTime();
-    if (d2 - d1 > 0) {
+    if (d2 - d1 >= 7200000) {
       const mod = (d2 - d1) / 86400000;
       setFare(mod * 1250);
       setBook(true);
+    } else {
+      showMessage({
+        message: 'Duration must be atleast Hours',
+        type: 'danger',
+        style: {
+          alignItems: 'center',
+        },
+      });
     }
   };
 
@@ -85,15 +104,20 @@ const RentalBill = ({navigation, route}) => {
             <Button
               mode="contained"
               style={{marginTop: 10}}
-              onPress={() => {
+              onPress={async() => {
                 const request = {
-                  fromTime: date,
-                  toTime: toDate,
-                  pickUpPoint: title,
-                  rate: (fare * item.price).toFixed(2),
-                  type: item.title,
+                  type: item.type,
+                  id : items._id
                 };
                 console.log(request);
+                const config = {
+                  headers:{
+                    'Content-Type' : 'application/json',
+                    'Authorization' : token
+                  }
+                }
+                const response = await axios.post(BASE_URL+'cabs/rental',request,config);
+                console.log(response);
               }}>
               Book
             </Button>
