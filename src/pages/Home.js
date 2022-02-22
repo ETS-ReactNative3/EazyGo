@@ -85,19 +85,17 @@ const Home = ({navigation}) => {
           '&return=summary&apiKey=' +
           String(HERE_API),
       );
-      console.log(response.data);
       setFare(
         (response.data.routes[0].sections[0].summary.length / 50).toFixed(2),
       );
       setavail(true);
-    }
-    else{
+    } else {
       showMessage({
-        message: "Please enter the pickup and drop Location",
-        type: "danger",
-        style:{
-          alignItems:'center'
-        }
+        message: 'Please enter the pickup and drop Location',
+        type: 'danger',
+        style: {
+          alignItems: 'center',
+        },
       });
     }
   };
@@ -153,9 +151,7 @@ const Home = ({navigation}) => {
             style={styles.scrollView}
             keyboardShouldPersistTaps="always">
             <Card style={styles.card}>
-              <Button mode="contained">From</Button>
               <PlacesInput setPlace={fromSet} label={'From Destination'} />
-              <Button mode="contained">To</Button>
               <PlacesInput setPlace={toSet} label={'To Destination'} />
             </Card>
             <Card style={styles.mapcont}>
