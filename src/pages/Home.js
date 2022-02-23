@@ -21,9 +21,12 @@ import Mux from '../assets/images/carTypes/Mux.jpg';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_API_KEY, HERE_API, BASE_URL} from '@env';
 import {showMessage} from 'react-native-flash-message';
+import MultiSelect from 'react-native-multiple-select';
 const height = Dimensions.get('window').height;
 const Home = ({navigation}) => {
   const [fare, setFare] = useState();
+  const[customize,setCustmize] = useState('');
+  const dropref = useRef();
   const entries = [
     {
       title: 'S-Cab',
@@ -56,6 +59,31 @@ const Home = ({navigation}) => {
       type: 'vcross',
     },
   ];
+  const custome = [{
+    id:'Grocery Trays',
+    name:'Grocery Trays - Rs 150'
+  },{
+    id:'Milk Tank',
+    name: 'Milk Tank - Rs 150'
+  },{
+    id:'Bed Line Over Rail',
+    name: 'Bed Line Over Rail - Rs 150'
+  },{
+    id:'Canopy',
+    name:'Canopy'
+  },{
+    id:'Cargo Bike Carrier',
+    name: 'Cargo Bike Carrier'
+  },{
+    id:'Cargo Net',
+    name:'Cargo Net'
+  },{
+    id:'Hard Lid',
+    name :'Hard Lid'
+  },{
+    id:'Sports Bar',
+    name:'Sports Bar'
+  }]
   const [token, setToken, userLocation] = useContext(AuthStore);
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
@@ -86,7 +114,7 @@ const Home = ({navigation}) => {
           String(HERE_API),
       );
       setFare(
-        (response.data.routes[0].sections[0].summary.length / 50).toFixed(2),
+        ((response.data.routes[0].sections[0].summary.length / 50)).toFixed(2),
       );
       setavail(true);
     } else {
@@ -105,7 +133,7 @@ const Home = ({navigation}) => {
       <Card style={styles.slide}>
         <Avatar.Image size={200} source={item.images} style={styles.head} />
         <Text style={{color: 'black', textAlign: 'center', fontSize: 20}}>
-          Fare: {(item.price * fare).toFixed(2)} Rs
+          Fare: {(item.price * fare + customize.length*150).toFixed(2)} Rs
         </Text>
         <Button
           mode="contained"
@@ -126,7 +154,7 @@ const Home = ({navigation}) => {
                 params: {
                   item: item,
                   response: resp.data,
-                  price: (item.price * fare).toFixed(2),
+                  price: (item.price * fare + customize.length*150).toFixed(2),
                   from: from,
                   to: to,
                 },
@@ -187,6 +215,28 @@ const Home = ({navigation}) => {
                 ) : null}
               </MapView>
             </Card>
+            <MultiSelect
+                items={custome}
+                uniqueKey='id'
+                ref={dropref}
+                onSelectedItemsChange={(selected)=>{
+                  setCustmize(selected)
+                }}
+                selectedItems={customize}
+                selectText='Customize Your Pickup Truck'
+                onChangeInput={ (text)=> console.log(text)}
+                altFontFamily="ProximaNova-Light"
+                tagRemoveIconColor="#CCC"
+                tagBorderColor="#CCC"
+                tagTextColor="#CCC"
+                selectedItemTextColor="#CCC"
+                selectedItemIconColor="#CCC"
+                itemTextColor="#000"
+                displayKey="name"
+                searchInputStyle={{ color: '#CCC' }}
+                submitButtonColor="black"
+                submitButtonText="Select"
+              />
             {from && to && avail ? (
               <Carousel
                 ref={carRef}
@@ -235,6 +285,9 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 20,
   },
+  mapcont:{
+    marginBottom:20
+  }
 });
 
 export default Home;
