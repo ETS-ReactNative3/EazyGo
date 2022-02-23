@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import About from '../pages/About';
 import RentalBill from '../pages/RentalBill';
 import RentYourCar from '../pages/RentYourCar';
+import RentalFinalBill from '../pages/RentalFinalPage';
 
 const RentalNavigator = () => {
   const {Navigator: StackNavigator, Screen: StackScreen} =
@@ -18,7 +19,10 @@ const RentalNavigator = () => {
         </StackScreen>
         <StackScreen name="RentYourCar" options={{headerShown: false}}>
           {props => <RentYourCar {...props} />}
-        </StackScreen>        
+        </StackScreen>
+        <StackScreen name="RentFinalBill" options={{headerShown: false}}>
+          {props => <RentalFinalBill {...props} />}
+        </StackScreen>
       </StackNavigator>
     </>
   );

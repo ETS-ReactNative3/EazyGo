@@ -31,7 +31,7 @@ const RentalBill = ({navigation, route}) => {
       title: 'D-Max',
       images: Dmax,
       price: 1.2,
-      type : 'dmax'
+      type: 'dmax',
     },
     {
       title: 'S-Cab',
@@ -80,12 +80,12 @@ const RentalBill = ({navigation, route}) => {
               style={{marginTop: 10}}
               onPress={async () => {
                 const request = {
-                  from : date,
-                  to : toDate,
-                  type : item.type
-                }
+                  from: date,
+                  to: toDate,
+                  type: item.type,
+                };
                 console.log(request);
-                navigation.navigate({name:'RentalHome'})
+                navigation.navigate({name: 'RentalHome'});
               }}>
               Check Availability
             </Button>
@@ -104,7 +104,17 @@ const RentalBill = ({navigation, route}) => {
         style={{height: 50, alignItems: 'center', justifyContent: 'center'}}>
         Rental Booking
       </Button>
-      <Button mode="contained" onPress={()=> navigation.navigate('RentYourCar')} style={{marginTop:15,width:'90%',marginHorizontal:'5%',borderRadius:4}}>Want to Rent your Pickup Truck?</Button>
+      <Button
+        mode="contained"
+        onPress={() => navigation.navigate('RentYourCar')}
+        style={{
+          marginTop: 15,
+          width: '90%',
+          marginHorizontal: '5%',
+          borderRadius: 4,
+        }}>
+        Want to Rent your Pickup Truck?
+      </Button>
       <Card style={{margin: 10}}>
         <Button
           style={{
@@ -205,7 +215,7 @@ const RentalBill = ({navigation, route}) => {
                   alignItems: 'center',
                 },
               });
-            }          
+            }
           }}>
           Check Rate
         </Button>

@@ -13,7 +13,7 @@ import {BASE_URL} from '@env ';
 const Register = () => {
   const [email_phone, setEmail_Phone] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword,setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [token, setToken, userLocation] = useContext(AuthStore);
   const [loader, setLoader] = useState(false);
   const email_phone_Set = value => {
@@ -22,9 +22,9 @@ const Register = () => {
   const passwordSet = value => {
     setPassword(value);
   };
-  const confirmpasswordSet = value =>{
+  const confirmpasswordSet = value => {
     setConfirmPassword(value);
-  }
+  };
   const frgt_pswd = () => {
     console.log('Forgot Password Called');
   };

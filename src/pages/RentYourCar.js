@@ -197,24 +197,24 @@ const RentYourCar = () => {
               onPress={() => {
                 const d1 = date.getTime();
                 const d2 = toDate.getTime();
-                if(d2-d1>=7200000){
-                const req = {
-                  from: date,
-                  to: toDate,
-                  type: truck,
-                  location: userLocation,
-                  license: file,
-                };
-                console.log(req);
-              }else{
-                showMessage({
-                  message: 'Duration must be atleast 2 Hours',
-                  type: 'danger',
-                  style: {
-                    alignItems: 'center',
-                  },
-                });
-              }
+                if (d2 - d1 >= 7200000) {
+                  const req = {
+                    from: date,
+                    to: toDate,
+                    type: truck,
+                    location: userLocation,
+                    license: file,
+                  };
+                  console.log(req);
+                } else {
+                  showMessage({
+                    message: 'Duration must be atleast 2 Hours',
+                    type: 'danger',
+                    style: {
+                      alignItems: 'center',
+                    },
+                  });
+                }
               }}>
               Rent
             </Button>

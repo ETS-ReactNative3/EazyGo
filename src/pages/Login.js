@@ -29,33 +29,32 @@ const Login = () => {
   const loginHandler = async () => {
     setLoader(true);
     setTimeout(async () => {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        const payload = {
-          email: email_phone,
-          password: password,
-        };
-        try {
-          const response = await axios.post(
-            'https://easy-go-nec.herokuapp.com/v1/auth/login',
-            payload,
-            config,
-          );
-          if (response) {
-            if (response.data) {
-              await AsyncStorage.setItem('@userdata', response.data.token);
-              setToken(response.data.token);
-            }
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const payload = {
+        email: email_phone,
+        password: password,
+      };
+      try {
+        const response = await axios.post(
+          'https://easy-go-nec.herokuapp.com/v1/auth/login',
+          payload,
+          config,
+        );
+        if (response) {
+          if (response.data) {
+            await AsyncStorage.setItem('@userdata', response.data.token);
+            setToken(response.data.token);
           }
-        } catch (err) {
-          console.log(err);
         }
-        setLoader(false);
-      },
-      1000);
+      } catch (err) {
+        console.log(err);
+      }
+      setLoader(false);
+    }, 1000);
   };
 
   return (
