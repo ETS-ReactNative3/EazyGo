@@ -85,7 +85,10 @@ const RentalBill = ({navigation, route}) => {
                   type: item.type,
                 };
                 console.log(request);
-                navigation.navigate({name: 'RentalHome'});
+                navigation.navigate({
+                  name: 'RentalHome',
+                  params: {from: date, to: toDate},
+                });
               }}>
               Check Availability
             </Button>

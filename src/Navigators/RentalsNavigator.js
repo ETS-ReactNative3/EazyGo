@@ -20,7 +20,7 @@ const RentalNavigator = () => {
         <StackScreen name="RentYourCar" options={{headerShown: false}}>
           {props => <RentYourCar {...props} />}
         </StackScreen>
-        <StackScreen name="RentFinalBill" options={{headerShown: false}}>
+        <StackScreen name="RentalFinalBill" options={{headerShown: false}}>
           {props => <RentalFinalBill {...props} />}
         </StackScreen>
       </StackNavigator>

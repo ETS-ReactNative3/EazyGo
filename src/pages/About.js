@@ -10,6 +10,7 @@ const height = Dimensions.get('window').height;
 const About = ({navigation, route}) => {
   const mapRef = useRef();
   const [token, setToken, userLocation] = useContext(AuthStore);
+  const {from, to} = route && route.params;
   const [markPoints, setMarkPoints] = useState();
   const [loader, setLoader] = useState(false);
   const users = [
@@ -88,15 +89,14 @@ const About = ({navigation, route}) => {
                           title="EasyGo Pickup Spot"
                           description={item.description}
                           identifier={String(index)}
-                          onCalloutPress={async() => {
+                          onCalloutPress={async () => {
                             setLoader(true);
                             setLoader(false);
                             navigation.navigate({
                               name: 'RentalFinalBill',
                               params: {
-                                title: item.description,
-                                availability: item.availability,
-                                items: item,
+                                from: from,
+                                to: to,
                               },
                             });
                           }}
@@ -120,11 +120,10 @@ const About = ({navigation, route}) => {
                             setTimeout(() => {
                               setLoader(false);
                               navigation.navigate({
-                                name: 'RentalBill',
+                                name: 'RentalFinalBill',
                                 params: {
-                                  title: item.description,
-                                  availability: item.availability,
-                                  items: item,
+                                  from: from,
+                                  to: to,
                                 },
                               });
                             }, 1000);
