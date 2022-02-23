@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from 'react-native-paper';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,10 +8,12 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import {BASE_URL} from '@env';
 import Aboutisuzu from './Aboutisuzu';
 import Aboutus from './Aboutus';
-import Carmodels from './Carmodels.js'
+import Carmodels from './Carmodels';
+
 
 const Profile = () => {
   const [token, setToken,userLocation] = useContext(AuthStore);
+  
   const Tab = createMaterialTopTabNavigator();
   const logoutHandler = async () => {
     const userData = await AsyncStorage.getItem('@userdata');
@@ -53,6 +55,7 @@ const Profile = () => {
       color: 'white',
     },
   });
+  
 
 
   return (
@@ -64,10 +67,11 @@ const Profile = () => {
           {swipeEnabled:false}
         }>
       <Tab.Screen name="About Isuzu" component={Aboutisuzu} swipeEnabled={false}/>
-      <Tab.Screen name="Car Models" component={Carmodels} />
+      <Tab.Screen name="Car Models" component={Carmodels}/>
       <Tab.Screen name="About Us" component={Aboutus} />
       </Tab.Navigator>
-      <Button mode='outlined' style={{marginHorizontal:'5%',width:'90%'}} onPress={async()=>{
+
+      <Button mode='outlined' style={{marginHorizontal:'5%',width:'90%',marginTop:10}} onPress={async()=>{
         await Linking.openURL('https://www.isuzu.in/product/');
       }}>
         More On Isuzu
