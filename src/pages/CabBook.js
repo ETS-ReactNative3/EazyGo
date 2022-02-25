@@ -3,15 +3,12 @@ import {Button, Card, Avatar} from 'react-native-paper';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_API_KEY} from '@env';
-import Dmax from '../assets/images/carTypes/Dmax.jpg';
-import HiLander from '../assets/images/carTypes/HiLander.jpg';
-import VCross from '../assets/images/carTypes/VCross.jpg';
-import Scab from '../assets/images/carTypes/scab.jpg';
-import Mux from '../assets/images/carTypes/Mux.jpg';
-import {ScrollView, Dimensions} from 'react-native';
+import {ScrollView, Dimensions,Image} from 'react-native';
 import AuthStore from '../store/AuthStore';
 
 const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width
+console.log(width);
 const CabBook = ({navigation, route}) => {
   const ref = useRef();
   const {item, response, price, from, to} = route && route.params;
@@ -79,6 +76,7 @@ const CabBook = ({navigation, route}) => {
               alignItems: 'center',
               marginHorizontal: '5%',
             }}>
+            <Image source={require('../assets/images/gift.gif')} style={{width:width*0.78125,height:180,justifyContent:'center'}}/>
             <Button mode="contained" style={{marginTop: 20}}>
               Driver Name : {response.driverName}
             </Button>
@@ -87,60 +85,6 @@ const CabBook = ({navigation, route}) => {
             <Button mode="outline" style={{marginBottom: 10}}>
               OTP : {response.otp}
             </Button>
-            <>
-              {response.type == 'scab' ? (
-                <Avatar.Image
-                  source={Scab}
-                  size={250}
-                  style={{justifyContent: 'center', alignItems: 'center'}}
-                />
-              ) : (
-                <>
-                  {response.type == 'mux' ? (
-                    <Avatar.Image
-                      source={Mux}
-                      size={250}
-                      style={{justifyContent: 'center', alignItems: 'center'}}
-                    />
-                  ) : (
-                    <>
-                      {response.type == 'hilander' ? (
-                        <Avatar.Image
-                          source={HiLander}
-                          size={250}
-                          style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}
-                        />
-                      ) : (
-                        <>
-                          {response.type == 'vcross' ? (
-                            <Avatar.Image
-                              souce={VCross}
-                              size={250}
-                              style={{
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                              }}
-                            />
-                          ) : (
-                            <Avatar.Image
-                              source={Dmax}
-                              size={250}
-                              style={{
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                              }}
-                            />
-                          )}
-                        </>
-                      )}
-                    </>
-                  )}
-                </>
-              )}
-            </>
           </Card>
         </ScrollView>
       ) : null}

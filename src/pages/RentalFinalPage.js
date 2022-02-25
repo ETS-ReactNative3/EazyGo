@@ -1,9 +1,17 @@
-import {format, parse} from 'date-fns';
+import {format} from 'date-fns';
 import React, {useRef, useContext, useState, useEffect} from 'react';
-import {Button, Card} from 'react-native-paper';
+import {Card, Text, Button} from 'react-native-paper';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {GOOGLE_MAPS_API_KEY} from '@env';
-import {ScrollView, Dimensions, StyleSheet,TouchableOpacity,Text} from 'react-native';
+import {
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+} from 'react-native';
+import Modal from 'react-native-modal';
 import AuthStore from '../store/AuthStore';
 import MultiSelect from 'react-native-multiple-select';
 import DocumentPicker from 'react-native-document-picker';
@@ -69,16 +77,43 @@ const RentalFinalBill = ({navigation, route}) => {
       name: 'Sports Bar - Rs 150',
     },
   ];
+  const[val,setVal] = useState();
+  useEffect(()=>{
+    setVal(Math.floor(1000 + Math.random() * 9000));
+  },[])
   useEffect(() => {
     let size = customize.length;
     let tot = size * 150;
     setFare(parseFloat(rate) + parseFloat(tot));
   }, [customize]);
   const mapRef = useRef();
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     <>
       {userLocation ? (
         <ScrollView>
+          <Modal isVisible={isModalVisible}>
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Card
+                style={{
+                  height: '50%',
+                  width: 300,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                  <Image source={require('../assets/images/gift.gif')} style={{height:'50%',width:300}}/>
+                  <Button>Rental Booking Confirmed</Button>
+                  <Button style={{matginTop:10}}>Pickup Key : {String(val)}</Button>
+                  <Button>Thank You for Choosing</Button>
+                  <Button>Isuzu EasyGo</Button>
+                  <Button onPress={()=> {setModalVisible(false); navigation.goBack()}} color="blue">Close</Button>
+              </Card>
+            </View>
+          </Modal>
           <Button mode="contained">Rental Bill</Button>
           <Button
             mode="outlined"
@@ -170,9 +205,9 @@ const RentalFinalBill = ({navigation, route}) => {
                 from: from,
                 to: to,
                 type: type,
-                license: file
+                license: file,
               };
-              console.log(req);
+              setModalVisible(true);
             }}>
             Confirm Booking
           </Button>
@@ -195,7 +230,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginHorizontal: '10%',
     marginBottom: 20,
-    marginTop:20
+    marginTop: 20,
   },
   ico: {
     textAlign: 'right',
@@ -213,5 +248,46 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'black',
     color: 'black',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
