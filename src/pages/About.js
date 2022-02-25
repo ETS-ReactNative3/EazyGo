@@ -10,26 +10,10 @@ const height = Dimensions.get('window').height;
 const About = ({navigation, route}) => {
   const mapRef = useRef();
   const [token, setToken, userLocation] = useContext(AuthStore);
-  const {from, to} = route && route.params;
+  const {from, to, type} = route && route.params;
   const [markPoints, setMarkPoints] = useState();
+  const [users, setUsers] = useState();
   const [loader, setLoader] = useState(false);
-  const users = [
-    {
-      latitude: 12.9736,
-      longitude: 80.2665,
-      description: 'Sanyog',
-    },
-    {
-      latitude: 13.0885,
-      longitude: 80.1816,
-      description: 'Srivathsav',
-    },
-    {
-      latitude: 13.064262,
-      longitude: 80.283791,
-      description: 'Chidambaram',
-    },
-  ];
   useEffect(() => {
     const fn = async () => {
       const config = {
@@ -38,8 +22,20 @@ const About = ({navigation, route}) => {
           Authorization: token,
         },
       };
-      const response = await axios.get(BASE_URL + 'shops', config);
+      const payload = {
+        type: type,
+      };
+      const response = await axios.post(BASE_URL + 'shops', payload, config);
       setMarkPoints(response.data);
+      const payl = {
+        type: type,
+        from: from,
+        to: to,
+        location: userLocation,
+      };
+      const res = await axios.post(BASE_URL + 'rent/show_rent', payl, config);
+      console.log(res.data)
+      setUsers(res.data);
     };
     fn();
   }, []);

@@ -10,7 +10,8 @@ import {Icon} from 'react-native-elements';
 import RNFS from 'react-native-fs';
 import AuthStore from '../store/AuthStore';
 import {showMessage} from 'react-native-flash-message';
-
+import axios from 'axios';
+import {BASE_URL} from '@env';
 const RentYourCar = () => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -194,7 +195,7 @@ const RentYourCar = () => {
             <Button
               mode="contained"
               style={{marginBottom: 20, width: '80%', marginHorizontal: '10%'}}
-              onPress={() => {
+              onPress={async() => {
                 const d1 = date.getTime();
                 const d2 = toDate.getTime();
                 if (d2 - d1 >= 7200000) {
@@ -203,9 +204,15 @@ const RentYourCar = () => {
                     to: toDate,
                     type: truck,
                     location: userLocation,
-                    license: file,
+                    //license: file,
                   };
-                  console.log(req);
+                  const config = {
+                    headers:{
+                      "Authorization" : token,
+                      "Content-Type" : 'application/json'
+                    }
+                  }
+                  const response = await axios.post(BASE_URL+'rent/post_rent',req,config);
                 } else {
                   showMessage({
                     message: 'Duration must be atleast 2 Hours',
