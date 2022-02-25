@@ -87,7 +87,7 @@ const RentalBill = ({navigation, route}) => {
                 console.log(request);
                 navigation.navigate({
                   name: 'RentalHome',
-                  params: {from: date, to: toDate, type: item.type},
+                  params: {from: date, to: toDate, type: item.type,rate:(fare * item.price).toFixed(2)},
                 });
               }}>
               Check Availability
@@ -149,7 +149,7 @@ const RentalBill = ({navigation, route}) => {
             marginHorizontal: '10%',
           }}
           onPress={() => setOpen(true)}>
-          {format(date, 'dd-MM-yyyy   -   hh:mm')}
+          {format(date, 'dd-MM-yyyy   -   hh:mm aa')}
         </Button>
         <DatePicker
           modal
@@ -184,7 +184,7 @@ const RentalBill = ({navigation, route}) => {
             marginBottom: 20,
           }}
           onPress={() => setOpen1(true)}>
-          {format(toDate, 'dd-MM-yyyy   -   hh:mm')}
+          {format(toDate, 'dd-MM-yyyy   -   hh:mm aa')}
         </Button>
         <DatePicker
           modal

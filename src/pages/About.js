@@ -10,7 +10,7 @@ const height = Dimensions.get('window').height;
 const About = ({navigation, route}) => {
   const mapRef = useRef();
   const [token, setToken, userLocation] = useContext(AuthStore);
-  const {from, to, type} = route && route.params;
+  const {from, to, type,rate} = route && route.params;
   const [markPoints, setMarkPoints] = useState();
   const [users, setUsers] = useState();
   const [loader, setLoader] = useState(false);
@@ -81,7 +81,7 @@ const About = ({navigation, route}) => {
                             latitude: parseFloat(item.latitude),
                             longitude: parseFloat(item.longitude),
                           }}
-                          title="EasyGo Pickup Spot"
+                          title="EazyGo Pickup Spot"
                           description={item.description}
                           identifier={String(index)}
                           onCalloutPress={async () => {
@@ -92,6 +92,14 @@ const About = ({navigation, route}) => {
                               params: {
                                 from: from,
                                 to: to,
+                                location : {
+                                  latitude: item.latitude,
+                                  longitude : item.longitude,
+                                  id: item._id,
+                                },
+                                description : "EazyGo Pickup Spot - " + item.description,
+                                type:type,
+                                rate: rate
                               },
                             });
                           }}
@@ -119,6 +127,14 @@ const About = ({navigation, route}) => {
                                 params: {
                                   from: from,
                                   to: to,
+                                  location:{
+                                    latitude: item.location.latitude,
+                                    longitude: item.location.longitude,
+                                    id: item.location._id
+                                  },
+                                  description: 'Private Pickup Spot',
+                                  type:type,
+                                  rate: rate
                                 },
                               });
                             }, 1000);

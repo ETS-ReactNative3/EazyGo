@@ -100,7 +100,7 @@ const RentYourCar = () => {
                 marginHorizontal: '10%',
               }}
               onPress={() => setOpen(true)}>
-              {format(date, 'dd-MM-yyyy   -   hh:mm')}
+              {format(date, 'dd-MM-yyyy   -   hh:mm aa')}
             </Button>
             <DatePicker
               modal
@@ -135,7 +135,7 @@ const RentYourCar = () => {
                 marginBottom: 20,
               }}
               onPress={() => setOpen1(true)}>
-              {format(toDate, 'dd-MM-yyyy   -   hh:mm')}
+              {format(toDate, 'dd-MM-yyyy   -   hh:mm aa')}
             </Button>
             <DatePicker
               modal
