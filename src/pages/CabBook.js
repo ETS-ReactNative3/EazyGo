@@ -31,7 +31,8 @@ const CabBook = ({navigation, route}) => {
           </Button>
           <Button style={{marginTop: 10}}>From : {from.title}</Button>
           <Button>To : {to.title}</Button>
-          <Card style={{width:'90%',marginHorizontal:'5%',marginBottom:15}}>
+          <Card
+            style={{width: '90%', marginHorizontal: '5%', marginBottom: 15}}>
             <MapView
               style={{
                 height: height * 0.415,

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../assets/theme.colors';
 
 const styles = StyleSheet.create({
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
   scrollCont: {
     maxHeight: 20,
   },
-  head:{
-    backgroundColor:'white'
+  head: {
+    backgroundColor: 'white'
   }
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image,ActivityIndicator} from 'react-native';
+import {Text, View, Image, ActivityIndicator} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import styles from '../styles/Splash';
 
@@ -15,7 +15,7 @@ const Loader = () => {
         />
       </View>
       <Animatable.Text animation="zoomIn">
-          <ActivityIndicator size="large" color="#000" />
+        <ActivityIndicator size="large" color="#000" />
       </Animatable.Text>
     </View>
   );

@@ -195,7 +195,7 @@ const RentYourCar = () => {
             <Button
               mode="contained"
               style={{marginBottom: 20, width: '80%', marginHorizontal: '10%'}}
-              onPress={async() => {
+              onPress={async () => {
                 const d1 = date.getTime();
                 const d2 = toDate.getTime();
                 if (d2 - d1 >= 7200000) {
@@ -206,14 +206,18 @@ const RentYourCar = () => {
                     location: userLocation,
                     //license: file,
                   };
-                  console.log('req',req)
+                  console.log('req', req);
                   const config = {
-                    headers:{
-                      "Authorization" : token,
-                      "Content-Type" : 'application/json'
-                    }
-                  }
-                  const response = await axios.post(BASE_URL+'rent/post_rent',req,config);
+                    headers: {
+                      Authorization: token,
+                      'Content-Type': 'application/json',
+                    },
+                  };
+                  const response = await axios.post(
+                    BASE_URL + 'rent/post_rent',
+                    req,
+                    config,
+                  );
                 } else {
                   showMessage({
                     message: 'Duration must be atleast 2 Hours',

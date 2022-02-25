@@ -1,4 +1,4 @@
-import {StyleSheet,Dimensions} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import themeColors from '../assets/theme.colors';
 import colors from '../assets/theme.colors';
 
@@ -7,14 +7,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.PRIMARY,
     minHeight: '30%',
-    justifyContent:'center',
-    alignItems:'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textField: {
     marginTop: 20,
     marginHorizontal: '2%',
     width: '96%',
-    backgroundColor:colors.WHITE
+    backgroundColor: colors.WHITE,
   },
   login_btn: {
     marginTop: 20,
@@ -23,48 +23,48 @@ const styles = StyleSheet.create({
   },
   forgotpswd: {
     color: 'red',
-    fontSize: parseInt(width/23),
-    textAlign:'center',
-    marginTop:15,
-    fontFamily:'Montserrat'
+    fontSize: parseInt(width / 23),
+    textAlign: 'center',
+    marginTop: 15,
+    fontFamily: 'Montserrat',
   },
-  card:{
-    margin:'3%',
-    marginTop:'7%'
+  card: {
+    margin: '3%',
+    marginTop: '7%',
   },
-  card_cont:{
-    backgroundColor:'whitesmoke'
+  card_cont: {
+    backgroundColor: 'whitesmoke',
   },
-  signup:{
-    color:colors.PRIMARY,
-    fontSize:parseInt(width/23),
-    textAlign:'center',
-    marginTop:15
+  signup: {
+    color: colors.PRIMARY,
+    fontSize: parseInt(width / 23),
+    textAlign: 'center',
+    marginTop: 15,
   },
-  cont:{
-    minHeight:'100%',
-    backgroundColor:'whitesmoke'
+  cont: {
+    minHeight: '100%',
+    backgroundColor: 'whitesmoke',
   },
-  head:{
-    backgroundColor:themeColors.WHITE,
+  head: {
+    backgroundColor: themeColors.WHITE,
   },
-  header:{
-    fontSize: parseInt(width/12),
-    marginTop:5,
-    color:colors.WHITE,
-    fontFamily:'Euphemia UCAS',
-    fontWeight:'bold'
+  header: {
+    fontSize: parseInt(width / 12),
+    marginTop: 5,
+    color: colors.WHITE,
+    fontFamily: 'Euphemia UCAS',
+    fontWeight: 'bold',
   },
-  signin:{
-    color:colors.PRIMARY,
-    fontSize:width/15,
-    fontWeight:'bold'
+  signin: {
+    color: colors.PRIMARY,
+    fontSize: width / 15,
+    fontWeight: 'bold',
   },
-  signincont:{
-    justifyContent:'center',
-    alignItems:'center',
-    marginTop:20
-  }
+  signincont: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
 });
 
 export default styles;

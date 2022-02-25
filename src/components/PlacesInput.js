@@ -10,7 +10,6 @@ const PlacesInput = ({setPlace, label}) => {
     <>
       <GooglePlacesAutocomplete
         onPress={async (data, details = null) => {
-          console.log(details.formatted_address, details.geometry);
           let response = {
             title: details.formatted_address,
             geometry: {
@@ -18,7 +17,6 @@ const PlacesInput = ({setPlace, label}) => {
               longitude: details.geometry.location.lng,
             },
           };
-          console.log(response);
           setPlace(response);
         }}
         ref={ref}

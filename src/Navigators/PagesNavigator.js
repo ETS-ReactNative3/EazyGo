@@ -31,7 +31,8 @@ const PagesNavigator = () => {
             name="Cabs"
             component={CabNavigator}
           />
-          <TabScreen             options={{
+          <TabScreen
+            options={{
               tabBarIcon: () => (
                 <Icon
                   name="car-rental"
@@ -40,7 +41,10 @@ const PagesNavigator = () => {
                   theme="outlined"
                 />
               ),
-            }} name="Rentals" component={RentalNavigator} />
+            }}
+            name="Rentals"
+            component={RentalNavigator}
+          />
           <TabScreen
             options={{
               tabBarIcon: () => (
