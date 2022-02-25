@@ -8,7 +8,6 @@ import AuthStore from '../store/AuthStore';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width
-console.log(width);
 const CabBook = ({navigation, route}) => {
   const ref = useRef();
   const {item, response, price, from, to} = route && route.params;
