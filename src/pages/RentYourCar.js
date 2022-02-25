@@ -206,6 +206,7 @@ const RentYourCar = () => {
                     location: userLocation,
                     //license: file,
                   };
+                  console.log('req',req)
                   const config = {
                     headers:{
                       "Authorization" : token,

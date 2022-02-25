@@ -34,7 +34,6 @@ const About = ({navigation, route}) => {
         location: userLocation,
       };
       const res = await axios.post(BASE_URL + 'rent/show_rent', payl, config);
-      console.log(res.data)
       setUsers(res.data);
     };
     fn();
@@ -79,8 +78,8 @@ const About = ({navigation, route}) => {
                       return (
                         <Marker
                           coordinate={{
-                            latitude: item.latitude,
-                            longitude: item.longitude,
+                            latitude: parseFloat(item.latitude),
+                            longitude: parseFloat(item.longitude),
                           }}
                           title="EasyGo Pickup Spot"
                           description={item.description}
@@ -104,8 +103,8 @@ const About = ({navigation, route}) => {
                       return (
                         <Marker
                           coordinate={{
-                            latitude: item.latitude,
-                            longitude: item.longitude,
+                            latitude: parseFloat(item.location.latitude),
+                            longitude: parseFloat(item.location.longitude),
                           }}
                           pinColor="#A633FF"
                           title="Private Pickup Spot"
