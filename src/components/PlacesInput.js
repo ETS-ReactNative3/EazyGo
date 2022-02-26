@@ -12,6 +12,7 @@ const PlacesInput = ({setPlace, label}) => {
       <Text style={{fontSize:17,color:'white',margin:3,fontFamily:'sans-serif'}}>{label}</Text>
       <GooglePlacesAutocomplete
         onPress={async (data, details = null) => {
+          console.log(details)
           let response = {
             title: details.formatted_address,
             geometry: {
@@ -19,6 +20,7 @@ const PlacesInput = ({setPlace, label}) => {
               longitude: details.geometry.location.lng,
             },
           };
+          console.log(response)
           setPlace(response);
         }}
         ref={ref}
@@ -37,6 +39,8 @@ const PlacesInput = ({setPlace, label}) => {
           'locality',
           'administrative_area_level_3',
         ]}
+        fetchDetails={true}
+        debounce={200}
         styles={{
           container: {
             borderColor: 'black',

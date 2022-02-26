@@ -109,6 +109,7 @@ const Home = ({navigation}) => {
     setavail(false);
   }, [from, to]);
   const rateCheck = async () => {
+    console.log(from,to)
     if (from && to) {
       const response = await axios.get(
         'https://router.hereapi.com/v8/routes?transportMode=car&origin=' +
