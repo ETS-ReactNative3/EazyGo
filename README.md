@@ -6,7 +6,7 @@
 
 We, **EazyGO** , try to fully utilize all the merits of ISUZU Pickup trucks including Efficient Engines, Maximum Power, Multi-terrain tech and most importantly, Huge Private space. ISUZU trucks also prioritize Driver's safety over everything else. We reccommend and rent specific truck models for specific requirements. 
 
-[Watch the video](https://drive.google.com/file/d/1sKr9WW46dY7mm0_UuQq1VNN-oTuJYP0u/view?resourcekey)
+[Watch the video](https://youtu.be/y-i0h0npEgc)
 
 ## Tech Used
 
@@ -15,6 +15,8 @@ We, **EazyGO** , try to fully utilize all the merits of ISUZU Pickup trucks incl
 -   **Database :** MongoDB
 -   **Version Control :** Git and GitHub
 -   **External APIs :** Here APIs and Google Maps
+
+[Back end Repository](https://github.com/MPS-Ledgers/easyGo-Backend) 
 
 ## How to Run Application
 
