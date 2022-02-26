@@ -11,6 +11,8 @@ import {
   View,
   Image,
 } from 'react-native';
+import {BASE_URL} from '@env';
+import axios from 'axios'
 import Modal from 'react-native-modal';
 import AuthStore from '../store/AuthStore';
 import MultiSelect from 'react-native-multiple-select';
@@ -18,7 +20,7 @@ import DocumentPicker from 'react-native-document-picker';
 import {Icon} from 'react-native-elements';
 const height = Dimensions.get('window').height;
 const RentalFinalBill = ({navigation, route}) => {
-  const {from, to, location, description, type, rate} = route && route.params;
+  const {from, to, location, description, type, rate,rental_type} = route && route.params;
   const [token, setToken, userLocation] = useContext(AuthStore);
   const [customize, setCustmize] = useState('');
   const [fare, setFare] = useState(parseFloat(rate));
@@ -202,12 +204,22 @@ const RentalFinalBill = ({navigation, route}) => {
               const req = {
                 shop: location.id,
                 rate: fare,
-                from: from,
-                to: to,
+                from: String(from),
+                to: String(to),
                 type: type,
-                license: file,
+                //license: file,
+                rental_type : rental_type
               };
+              const config = {
+                headers: {
+                  "Authorization": token,
+                  "Content-Type": "application/json"
+                }
+              }
+              const response = await axios.post(BASE_URL + 'rent/book_rent', req,config)
               setModalVisible(true);
+              console.log(req);
+              console.log(response.data);
             }}>
             Confirm Booking
           </Button>

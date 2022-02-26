@@ -7,11 +7,9 @@ import i5 from '../assets/images/Customtypes/cargobikecarrier.jpg';
 import i6 from '../assets/images/Customtypes/cargonet.jpg';
 import i7 from '../assets/images/Customtypes/hardlid.jpg';
 import i8 from '../assets/images/Customtypes/sportsbar.jpg';
-
-import {
-  View
-} from 'react-native';
+import { View } from 'react-native';
 import Carouselcomp from '../components/Carousalcomp';
+
 const Data = [
   {
     title: 'Vegetable/Grocery Trays',

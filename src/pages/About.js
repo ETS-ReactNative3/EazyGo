@@ -99,7 +99,8 @@ const About = ({navigation, route}) => {
                                 },
                                 description : "EazyGo Pickup Spot - " + item.description,
                                 type:type,
-                                rate: rate
+                                rate: rate,
+                                rental_type : 0
                               },
                             });
                           }}
@@ -130,11 +131,12 @@ const About = ({navigation, route}) => {
                                   location:{
                                     latitude: item.location.latitude,
                                     longitude: item.location.longitude,
-                                    id: item.location._id
+                                    id: item._id
                                   },
                                   description: 'Private Pickup Spot',
                                   type:type,
-                                  rate: rate
+                                  rate: rate,
+                                  rental_type : 1
                                 },
                               });
                             }, 1000);

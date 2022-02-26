@@ -38,14 +38,14 @@ const Data = [
   {
     title: 'V-Cross',
     poster: VC,
-    desc: 'Used for travel in tough terrains',
+    desc: 'Used for travelling in tough-terrains',
     payload: '265 Kg',
     seater : '5-seater'
   },
   {
     title: 'S-Cab',
     poster: Sc,
-    desc: 'Best suited in Construction sector',
+    desc: 'Best suited in Construction sectors',
     payload: '1055 Kg',
     seater : '5-seater'
   },
@@ -53,7 +53,7 @@ const Data = [
     title: 'Mux',
     poster: Muxx,
     desc: 'Used for Cabs - Comfortable & Spacious',
-    payload: '-',
+    payload: 'NA',
     seater: '7-seater'
   },
 ];

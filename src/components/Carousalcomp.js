@@ -51,6 +51,15 @@ const styles = StyleSheet.create({
     width: '100%',
     resizeMode: 'contain',
   },
+  opt:{
+    borderWidth: 1,
+    borderColor:'black',
+    borderRadius: 4,
+    marginTop:10,
+    color: 'black',
+ 
+    
+  },
 });
 
 const Carousalcomp = props => {
@@ -60,8 +69,11 @@ const Carousalcomp = props => {
         <Text style={styles.slide}>{item.title}</Text>
         <Image style={styles.img} source={item.poster.valueOf()} />
         <Text style={styles.desc}>{item.desc}</Text>
-        {item.seater && <Button>{item.seater}</Button>}
-        {item.payload && <Button>Payload {item.payload}</Button>}
+        <View style={{ flexDirection:"row",alignItems: "center",justifyContent: "center"}}>
+            {item.seater && <Button style = {styles.opt}>{item.seater}</Button>}
+            {item.payload && <Button style = {styles.opt}>Payload : {item.payload}</Button>}
+        </View>
+        
       </Card>
     );
   };

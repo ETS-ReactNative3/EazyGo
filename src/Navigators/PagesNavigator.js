@@ -8,6 +8,7 @@ import colors from '../assets/theme.colors';
 import RentalNavigator from './RentalsNavigator';
 import CabNavigator from './CabNavigator';
 import {Icon} from 'react-native-elements';
+import Events from '../pages/Events';
 const {Navigator: TabNavigator, Screen: TabScreen} =
   createMaterialBottomTabNavigator();
 const PagesNavigator = () => {
@@ -44,6 +45,20 @@ const PagesNavigator = () => {
             }}
             name="Rentals"
             component={RentalNavigator}
+          />
+          <TabScreen
+            options={{
+              tabBarIcon: () => (
+                <Icon
+                  name="event"
+                  type="materialicons"
+                  style={{fontSize: '16px', color: '#08c'}}
+                  theme="outlined"
+                />
+              ),
+            }}
+            name="Events"
+            component={Events}
           />
           <TabScreen
             options={{

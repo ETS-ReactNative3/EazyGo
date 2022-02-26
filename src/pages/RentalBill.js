@@ -52,6 +52,7 @@ const RentalBill = ({navigation, route}) => {
       type: 'vcross',
     },
   ];
+  console.log(token);
   const sliderWidth = 500,
     itemWidth = 300;
   const _renderItem = ({item, index}) => {
