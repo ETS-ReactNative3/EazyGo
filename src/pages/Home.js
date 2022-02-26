@@ -259,7 +259,7 @@ const Home = ({navigation}) => {
             ) : (
               <Button
                 mode="contained"
-                style={{marginTop: 10}}
+                style={{marginVertical: 15}}
                 onPress={rateCheck}>
                 Check Rate
               </Button>
@@ -295,6 +295,8 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 20,
+    backgroundColor:'black',
+    elevation:13
   },
   mapcont: {
     marginBottom: 20,

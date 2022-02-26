@@ -2,12 +2,14 @@ import React, {useState, useEffect, useContext, useRef} from 'react';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import AuthStore from '../store/AuthStore';
 import {GOOGLE_MAPS_API_KEY} from '@env';
+import {Text} from 'react-native-paper';
 const PlacesInput = ({setPlace, label}) => {
   const [token, setToken, userLocation] = useContext(AuthStore);
   const [defaultLocation, setdefaultLocation] = useState('');
   const ref = useRef();
   return (
     <>
+      <Text style={{fontSize:17,color:'white',margin:3,fontFamily:'sans-serif'}}>{label}</Text>
       <GooglePlacesAutocomplete
         onPress={async (data, details = null) => {
           let response = {
@@ -26,8 +28,6 @@ const PlacesInput = ({setPlace, label}) => {
         }}
         placeholder={label}
         placeholderTextColor="#000"
-        fetchDetails={true}
-        debounce={200}
         keyboardShouldPersistTaps={'handled'}
         listViewDisplayed={false}
         listUnderlayColor={'transparent'}
@@ -39,26 +39,19 @@ const PlacesInput = ({setPlace, label}) => {
         ]}
         styles={{
           container: {
-            borderColor: '#000',
-            borderWidth: 0.5,
-            color: '#000',
+            borderColor: 'black',
+            borderWidth: 1,
+            borderRadius: 0,
             backgroundColor: 'white',
             alignItems: 'center',
-            width: '100%',
-            flexGrow: 1,
           },
-          textInputContainer: {
-            fontSize: 16,
-            alignItems: 'center',
-            borderColor: 'black',
-            placeholderTextColor: '#000',
-          },
-          textInput: {color: 'black'},
+          textInput: {color: 'black', placeholderTextColor: '#000'},
           listView: {color: 'black', opacity: 1, width: '100%'},
           row: {color: 'black'},
           predefinedPlacesDescription: {color: 'black'},
           description: {color: 'black'},
         }}
+        enablePoweredByContainer={false}
         textInputProps={{
           onChangeText: text => {
             setdefaultLocation(text);

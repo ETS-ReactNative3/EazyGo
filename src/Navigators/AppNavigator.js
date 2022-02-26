@@ -15,15 +15,27 @@ const AppNavigator = () => {
       const authToken = await AsyncStorage.getItem('@userdata');
       setToken(authToken);
       setData(true);
-      Geolocation.getCurrentPosition(position => {
-        const currentLongitude = JSON.stringify(position.coords.longitude);
-        const currentLatitude = JSON.stringify(position.coords.latitude);
-        const response = {
-          latitude: currentLatitude,
-          longitude: currentLongitude,
-        };
-        setUserLocation(response);
-      });
+      Geolocation.getCurrentPosition(
+        position => {
+          const currentLongitude = JSON.stringify(position.coords.longitude);
+          const currentLatitude = JSON.stringify(position.coords.latitude);
+          const response = {
+            latitude: currentLatitude,
+            longitude: currentLongitude,
+          };
+          console.log(response);
+          setUserLocation(response);
+        },
+        error => {
+          console.log(error.message.toString());
+        },
+        {
+          showLocationDialog: true,
+          enableHighAccuracy: true,
+          timeout: 20000,
+          maximumAge: 0,
+        },
+      );
     };
     fn();
   }, []);
