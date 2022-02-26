@@ -30,31 +30,25 @@ const RentalBill = ({navigation, route}) => {
     {
       title: 'D-Max',
       images: Dmax,
-      price: 1.2,
+      price: 1,
       type: 'dmax',
     },
     {
       title: 'S-Cab',
       images: Scab,
-      price: 1,
+      price: 1.15,
       type: 'scab',
-    },
-    {
-      title: 'muX',
-      images: Mux,
-      price: 1.4,
-      type: 'mux',
     },
     {
       title: 'HiLander',
       images: HiLander,
-      price: 2,
+      price: 1.7,
       type: 'hilander',
     },
     {
       title: 'V-Cross',
       images: VCross,
-      price: 1.75,
+      price: 1.925,
       type: 'vcross',
     },
   ];
@@ -208,7 +202,12 @@ const RentalBill = ({navigation, route}) => {
             const d2 = toDate.getTime();
             if (d2 - d1 >= 7200000) {
               const mod = (d2 - d1) / 86400000;
-              setFare(mod * 1250);
+              console.log(mod)
+              if (mod >= 3) {
+                setFare(mod*1600); 
+              }
+              else
+                setFare(mod * 24 * 200);
               setBook(true);
             } else {
               showMessage({

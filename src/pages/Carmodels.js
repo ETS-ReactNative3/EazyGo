@@ -25,26 +25,36 @@ const Data = [
     title: 'D-Max',
     poster: Dmax,
     desc: "Isuzu's most multi-purpose vehicle",
+    seater: '2-seater',
+    payload : '1710Kg'
   },
   {
     title: 'Hi-Lander',
     poster: tour,
     desc: 'Used for tourism',
+    seater : '5-seater',
+    payload: '1055 Kg'
   },
   {
     title: 'V-Cross',
     poster: VC,
     desc: 'Used for travel in tough terrains',
+    payload: '265 Kg',
+    seater : '5-seater'
   },
   {
     title: 'S-Cab',
     poster: Sc,
     desc: 'Best suited in Construction sector',
+    payload: '1055 Kg',
+    seater : '5-seater'
   },
   {
     title: 'Mux',
     poster: Muxx,
     desc: 'Used for Cabs - Comfortable & Spacious',
+    payload: '-',
+    seater: '7-seater'
   },
 ];
 

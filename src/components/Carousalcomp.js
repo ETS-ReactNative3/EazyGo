@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card} from 'react-native-paper';
+import {Button, Card} from 'react-native-paper';
 import Carousel from 'react-native-snap-carousel';
 import {
   View,
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     textAlign: 'center',
     fontSize: 20,
-    marginTop: 10,
     textTransform: 'uppercase',
     letterSpacing: 5,
     justifyContent: 'center',
@@ -61,13 +60,15 @@ const Carousalcomp = props => {
         <Text style={styles.slide}>{item.title}</Text>
         <Image style={styles.img} source={item.poster.valueOf()} />
         <Text style={styles.desc}>{item.desc}</Text>
+        {item.seater && <Button>{item.seater}</Button>}
+        {item.payload && <Button>Payload {item.payload}</Button>}
       </Card>
     );
   };
   //const data = (props.msg=='About')?data=data1:data=data2;
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1,height:600}}>
       <Carousel
         data={props.data}
         renderItem={_renderItem}

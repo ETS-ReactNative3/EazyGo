@@ -31,31 +31,31 @@ const Home = ({navigation}) => {
     {
       title: 'S-Cab',
       images: Scab,
-      price: 1,
+      price: 1.1,
       type: 'scab',
     },
     {
       title: 'muX',
       images: Mux,
-      price: 1.4,
+      price: 1.35,
       type: 'mux',
     },
     {
       title: 'HiLander',
       images: HiLander,
-      price: 2,
+      price: 1.2,
       type: 'hilander',
     },
     {
       title: 'D-Max',
       images: Dmax,
-      price: 0.75,
+      price: 1,
       type: 'dmax',
     },
     {
       title: 'V-Cross',
       images: VCross,
-      price: 1.75,
+      price: 1.25,
       type: 'vcross',
     },
   ];
@@ -123,9 +123,13 @@ const Home = ({navigation}) => {
           '&return=summary&apiKey=' +
           String(HERE_API),
       );
-      setFare(
-        (response.data.routes[0].sections[0].summary.length / 50).toFixed(2),
-      );
+      const rest = (response.data.routes[0].sections[0].summary.length / 50).toFixed(2);
+      if (rest > 50)
+        setFare(
+          (response.data.routes[0].sections[0].summary.length / 50).toFixed(2),
+        );
+      else
+        setFare(50);
       setavail(true);
     } else {
       showMessage({
