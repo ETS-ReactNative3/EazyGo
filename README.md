@@ -2,7 +2,7 @@
 
 ## Automobile Digital Transformation
 
-**EAZYGO** is a React Native based application which tries to promote Digitalization of Automobiles and Promotion of Pickup Trucks in India. This Appplication provides Cab service as well as Truck Rental service, that includes ISUZU Pickup trucks, Cars and Convertibles. It is also made uder-friendly to make it easily accessible to all those who are in need and cannot afford to buy the vehicle.
+**EAZYGO** is a React Native based application which tries to promote Digitalization of Automobiles and Promotion of Pickup Trucks in India. This Appplication provides Cab service as well as Truck Rental service, that includes ISUZU Pickup trucks, Cars and Convertibles. It is also made user-friendly to make it easily accessible to all those who are in need and cannot afford to buy the vehicle.
 
 We, **EazyGO** , try to fully utilize all the merits of ISUZU Pickup trucks including Efficient Engines, Maximum Power, Multi-terrain tech and most importantly, Huge Private space. ISUZU trucks also prioritize Driver's safety over everything else. We reccommend and rent specific truck models for specific requirements. 
 
